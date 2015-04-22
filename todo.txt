@@ -1,0 +1,27 @@
+v. 1.1
+
+OK - angular-datatables updated
+OK - angular updated
+OK - print css improved
+OK - shop part
+OK - bootstrap updated
+OK - form wizard improved to look more wizardish
+OK - off-canvas sidebar layout
+OK - improve docs about structure of zip
+OK - improved file structure of zip
+
+
+v. 1.1a
+OK - updated angular bootstrap to 0.12.0
+OK - shop tooltips fix
+OK - off canvas toggle fix
+OK - fix dashboard table scroller
+OK - fix datatables margin
+OK - fix chat page
+OK - fix toaster
+
+
+
+
+
+
