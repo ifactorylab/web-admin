@@ -8,10 +8,11 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('HeaderCtrl', function ($scope, $state, authApi, storage) {
+  .controller('HeaderCtrl', function ($scope, $state, storage, authApi) {
+    $scope.authToken = storage.get("auth_token");
 
     $scope.logout = function() {
-      authApi.destroy(storage.get("auth_token")).then(function(data) {
+      authApi.destroy($scope.authToken).then(function(data) {
         storage.set("auth_token", null);
         storage.set("refresh_token", null);
         $state.go('core.login');

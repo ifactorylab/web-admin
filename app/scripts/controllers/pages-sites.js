@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('SitesCtrl', function ($scope, $modal, storage, siteApi) {
+  .controller('SitesCtrl', function ($rootScope, $scope, $modal, storage, siteApi) {
     $scope.page = {
       title: 'Sites',
       subtitle: 'Place subtitle here...'
@@ -16,7 +16,7 @@ angular.module('webAdminApp')
 
     $scope.authToken = storage.get("auth_token");
     siteApi.index($scope.authToken).then(function(data) {
-      $scope.sites = data;
+      $scope.sites = data.sites;
     }, function(response) {
       var message = 'Something bad happened :(';
       if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
@@ -44,7 +44,7 @@ angular.module('webAdminApp')
           // $scope.showAlert(message, 'danger', 'fa-warning');
         });
       }
-    }
+    };
 
     $scope.openSite = function(site) {
       siteApi.show($scope.authToken, site.id).then(function(data) {
@@ -181,14 +181,14 @@ angular.module('webAdminApp')
         return [];
       }
       var begin = index * 3;
-      return $scope.sites.sites.slice(begin, begin + 3);
+      return $scope.sites.slice(begin, begin + 3);
     };
 
     $scope.rows = function() {
       if (!$scope.sites) {
         return 0;
       }
-      return Math.ceil($scope.sites.sites.length / 3);
+      return Math.ceil($scope.sites.length / 3);
     };
 
     $scope.range = function(n) {

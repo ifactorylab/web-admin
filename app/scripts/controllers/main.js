@@ -13,10 +13,10 @@ angular.module('webAdminApp')
     $scope.main = {
       title: 'Venice',
       settings: {
-        navbarHeaderColor: 'scheme-default',
-        sidebarColor: 'scheme-default',
-        brandingColor: 'scheme-default',
-        activeColor: 'default-scheme-color',
+        navbarHeaderColor: 'scheme-light',
+        sidebarColor: 'scheme-light',
+        brandingColor: 'scheme-light',
+        activeColor: 'cyan-scheme-color',
         headerFixed: true,
         asideFixed: true,
         rightbarShow: false

@@ -6,8 +6,18 @@
         Navigation <i class="fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i>
       </accordion-heading>
       <ul id="navigation" nav-collapse ripple>
-        <li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li>
+        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.page')}">
+          <a ui-sref="app.page"><fa name="desktop"></fa> <span>Page</span></a>
+          <ul>
+            <li ui-sref-active="active"><a ui-sref="app.page.title-desc"><fa name="caret-right"></fa> Title / Description</a></li>
+            <li ui-sref-active="active"><a ui-sref="app.page.content"><fa name="caret-right"></fa> Contents</a></li>
+            <li ui-sref-active="active"><a ui-sref="app.page.background"><fa name="caret-right"></fa> Background Images</a></li>
+          </ul>
+        </li>
+        <li ui-sref-active="active"><a ui-sref="app.design"><fa name="file-image-o"></fa> <span>Design</span></a></li>
+        <li ui-sref-active="active"><a ui-sref="app.settings"><fa name="wrench"></fa> <span>Settings</span></a></li>
         <li ui-sref-active="active"><a ui-sref="app.sites"><fa name="sitemap"></fa> <span>Sites</span></a></li>
+        <!--li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li>
         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.mail')}">
           <a ui-sref="app.mail"><fa name="envelope-o"></fa> <span>Mail</span> <span class="badge bg-lightred">6</span></a>
           <ul>
@@ -43,7 +53,7 @@
             <li ui-sref-active="active"><a ui-sref="app.ui.alerts"><fa name="caret-right"></fa> Alerts & Notifications</a></li>
           </ul>
         </li>
-         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.shop')}">
+        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.shop')}">
           <a ui-sref="app.shop"><fa name="shopping-cart"></fa> <span>Shop</span> <span class="label label-success">new</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.shop.orders"><fa name="caret-right"></fa> Orders</a></li>
@@ -150,7 +160,7 @@
             </li>
           </ul>
         </li>
-        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li>
+        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li-->
 
       </ul>
     </accordion-group>
@@ -186,7 +196,7 @@
 
     </accordion-group>
 
-    <accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
+    <!--accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
       <accordion-heading>
         General Settings <i class="fa" ng-class="{'fa-angle-up': status.isThirdOpen, 'fa-angle-down': !status.isThirdOpen}"></i>
       </accordion-heading>
@@ -221,7 +231,7 @@
         </div>
       </div>
 
-    </accordion-group>
+    </accordion-group-->
 
   </accordion>
 </div>

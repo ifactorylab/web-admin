@@ -88,6 +88,49 @@ angular
       url: '/app',
       templateUrl: 'views/tmpl/app.html'
     })
+    //pages
+    .state('app.page', {
+      url: '/page',
+      controller: 'PageCtrl',
+      templateUrl: 'views/tmpl/page/page.html'
+    })
+    .state('app.page.title-desc', {
+      url: '/title-desc',
+      controller: 'TitleDescCtrl',
+      templateUrl: 'views/tmpl/page/title-description.html'
+    })
+    .state('app.page.content', {
+      url: '/content',
+      controller: 'ContentCtrl',
+      templateUrl: 'views/tmpl/page/content.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
+    })
+    .state('app.page.background', {
+      url: '/background',
+      controller: 'BackgroundCtrl',
+      templateUrl: 'views/tmpl/page/background.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
+    })
+    //design
+    .state('app.design', {
+      url: '/design'
+    })
+    //settings
+    .state('app.settings', {
+      url: '/settings'
+    })
     //dashboard
     .state('app.dashboard', {
       url: '/dashboard',
