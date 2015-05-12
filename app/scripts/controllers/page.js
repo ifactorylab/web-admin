@@ -23,6 +23,38 @@ angular.module('webAdminApp')
       });
     }
 
+    $scope.getPageContents = function(authToken, pageId, contentApi) {
+      contentApi.getContents(authToken, pageId).then(function(data) {
+        $scope.contents = data.contents;
+        console.log($scope.contents);
+      }, function(response) {
+        var message = 'Something bad happened :(';
+        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          message = response.data.error.message;
+        }
+
+        // $scope.showAlert(message, 'danger', 'fa-warning');
+      });
+    }
+
+    $scope.getSitePages = function(authToken, siteId, contentApi) {
+      contentApi.getPages(authToken, siteId).then(function(data) {
+        $scope.pages = data.pages;
+        console.log($scope.pages);
+
+        if ($scope.pages.length > 0) {
+          $scope.getPageContents(authToken, $scope.pages[0].id, contentApi);
+        }
+
+      }, function(response) {
+        var message = 'Something bad happened :(';
+        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          message = response.data.error.message;
+        }
+        // $scope.showAlert(message, 'danger', 'fa-warning');
+      });
+    }
+
     $rootScope.getCurrentSite = function() {
       if ($rootScope.currentSite) {
         return $rootScope.currentSite;
@@ -36,14 +68,14 @@ angular.module('webAdminApp')
     console.log($scope.getCurrentSite());
     if ($scope.getCurrentSite()) {
       $scope.site = $scope.getCurrentSite();
-      $scope.getSiteContent($scope.authToken, $scope.site.id, contentApi);
+      $scope.getSitePages($scope.authToken, $scope.site.id, contentApi);
     } else {
       siteApi.index($scope.authToken).then(function(data) {
         $scope.sites = data.sites;
         if (data.sites.length > 0) {
           $rootScope.currentSite = data.sites[0];
           $scope.site = data.sites[0];
-          $scope.getSiteContent($scope.authToken, $scope.site.id, contentApi);
+          $scope.getSitePages($scope.authToken, $scope.site.id, contentApi);
         }
       }, function(response) {
         var message = 'Something bad happened :(';

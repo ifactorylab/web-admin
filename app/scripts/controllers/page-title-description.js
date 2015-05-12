@@ -20,7 +20,7 @@ angular.module('webAdminApp')
     };
 
     $scope.saveTitles = function(pages) {
-      for (var i in $scope.pages) {
+      for (var i in pages) {
         contentApi.updatePage($scope.authToken, pages[i]).then(function(data) {
 
         }, function(response) {
@@ -28,30 +28,11 @@ angular.module('webAdminApp')
           if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
             message = response.data.error.message;
           }
-
           // $scope.showAlert(message, 'danger', 'fa-warning');
         });
       }
 
     }
-
-    contentApi.getPages($scope.authToken, $scope.site.id).then(function(data) {
-      $scope.pages = data.pages;
-      console.log($scope.pages);
-      $scope.steps = {};
-      for (var i in $scope.pages) {
-        $scope.steps["step" + ++i] = (i == 1 ? true : false);
-      }
-
-      console.log($scope.steps);
-    }, function(response) {
-      var message = 'Something bad happened :(';
-      if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
-        message = response.data.error.message;
-      }
-
-      // $scope.showAlert(message, 'danger', 'fa-warning');
-    });
 
     var uploader = $scope.uploader = new FileUploader({
       url: 'scripts/modules/fileupload/upload.php'

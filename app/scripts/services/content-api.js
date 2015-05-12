@@ -16,16 +16,23 @@ angular.module('webAdminApp')
         RestangularConfigurer.setBaseUrl(apiURL);
     });
 
-    contentApi.sitesWithAuthToken = function (authToken) {
+    contentApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
-        RestangularConfigurer.setDefaultHeaders({ 'Venice-Authorization': authToken });
-      }).service("sites");
+        RestangularConfigurer
+          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+      });
+    };
+
+    contentApi.sitesWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("sites");
     };
 
     contentApi.pagesWithAuthToken = function (authToken) {
-      return this.withConfig(function(RestangularConfigurer) {
-        RestangularConfigurer.setDefaultHeaders({ 'Venice-Authorization': authToken });
-      }).service("pages");
+      return this.withAuthToken(authToken).service("pages");
+    };
+
+    contentApi.contentsWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("contents");
     };
 
     contentApi.show = function (authToken, siteId) {
@@ -37,7 +44,18 @@ angular.module('webAdminApp')
     };
 
     contentApi.updatePage = function (authToken, page) {
-      return this.pagesWithAuthToken(authToken).one(page.id).patch({ page: page });
+      return this.pagesWithAuthToken(authToken).one(page.id)
+        .patch({ page: page });
+    };
+
+    contentApi.getContents = function (authToken, pageId) {
+      return this.pagesWithAuthToken(authToken).one(pageId).one("contents")
+        .get();
+    };
+
+    contentApi.updateContent = function (authToken, content) {
+      return this.contentsWithAuthToken(authToken).one(content.id)
+        .patch({ content: content });
     };
 
     // Public API here

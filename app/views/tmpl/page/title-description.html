@@ -9,9 +9,12 @@
 <!-- left side body -->
 <div class="p-15">
 
-  <tabset class="tab-animation tab-container tab-wizard" justified="true" set-ng-animate="true">
+  <tabset class="tab-animation tab-container tab-wizard" justified="true" set-ng-animate="true" ng-init="steps={step1:true, step2:false, step3:false}">
 
     <tab active="steps.step1">
+      <tab-heading>&nbsp;
+        <span class="badge badge-default pull-right wizard-step">1</span>
+      </tab-heading>
 
       <form name="step1" role="form" novalidate class="form-validation">
         <h4 class="custom-font"><strong>PAGE 1</strong></h4><br>
@@ -85,6 +88,9 @@
     </tab>
 
     <tab active="steps.step2" disabled="step1.$invalid">
+      <tab-heading>&nbsp;
+        <span class="badge badge-default pull-right wizard-step">2</span>
+      </tab-heading>
 
       <form name="step2" role="form" novalidate>
         <h4 class="custom-font"><strong>PAGE 2</strong></h4><br>
@@ -159,7 +165,9 @@
     </tab>
 
     <tab active="steps.step3" disabled="step2.$invalid">
-
+      <tab-heading>&nbsp;
+        <span class="badge badge-default pull-right wizard-step">3</span>
+      </tab-heading>
 
       <form name="step3" role="form" novalidate>
         <h4 class="custom-font"><strong>PAGE 3</strong></h4><br>
@@ -230,33 +238,6 @@
 
       </form>
     </tab>
-
-    <!--tab active="steps.step4" disabled="step3.$invalid">
-
-
-      <form name="step4" role="form" novalidate>
-        <h4 class="custom-font"><strong>PAGE 4</strong></h4><br>
-        <div class="row">
-          <div class="form-group col-md-12">
-            <label for="username">TITLE </label>
-            <p class="text-muted">A title of current page</p>
-            <input type="text" name="name" id="name" class="form-control" ng-model="site.content.title3" required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-12">
-            <label for="username">DESCRIPTION </label>
-            <p class="text-muted">A description of current page</p>
-            <input type="text" name="name" id="name" class="form-control" ng-model="site.content.title_desc3" required>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-default" ng-click="steps.step3=true">Previous</button>
-        <button type="submit" ng-disabled="step4$invalid" class="btn btn-success pull-right" ng-click="steps.step5=true">Save</button>
-
-      </form>
-    </tab-->
-
 
   </tabset>
 

@@ -8,13 +8,31 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('ContentCtrl', ['$scope', '$rootScope', 'FileUploader', function($scope, $rootScope, FileUploader) {
+  .controller('ContentCtrl', ['$scope', '$rootScope', 'FileUploader', 'contentApi', 'storage',
+      function($scope, $rootScope, FileUploader, contentApi, storage) {
     $rootScope.$broadcast('showPageLeftBar');
+    $scope.site = $rootScope.getCurrentSite();
+    $scope.authToken = storage.get("auth_token");
 
     $scope.hideLeftBar = function() {
       console.log("leftBar");
       $rootScope.$broadcast('hidePageLeftBar');
     };
+
+    $scope.saveContents = function(contents) {
+      for (var i in contents) {
+        contentApi.updateContent($scope.authToken, contents[i]).then(function(data) {
+
+        }, function(response) {
+          var message = 'Something bad happened :(';
+          if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+            message = response.data.error.message;
+          }
+          // $scope.showAlert(message, 'danger', 'fa-warning');
+        });
+      }
+
+    }
 
     var uploader = $scope.uploader = new FileUploader({
       url: 'scripts/modules/fileupload/upload.php'
