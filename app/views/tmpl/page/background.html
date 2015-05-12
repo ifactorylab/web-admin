@@ -66,7 +66,7 @@
 
         <hr class="b-0 b-b"/>
 
-        <button type="submit" ng-disabled="step1$invalid" class="btn btn-default" ng-click="">Next</button>
+        <button type="submit" ng-disabled="step1$invalid" class="btn btn-default" ng-click="steps.step2=true">Next</button>
       </form>
     </tab>
 
@@ -103,7 +103,7 @@
         </div>
 
         <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
-        <button type="submit" ng-disabled="step2$invalid" class="btn btn-default pull-right" ng-click="">Next</button>
+        <button type="submit" ng-disabled="step2$invalid" class="btn btn-default pull-right" ng-click="steps.step3=true">Next</button>
 
       </form>
     </tab>
@@ -141,7 +141,7 @@
         </div>
 
         <button type="submit" class="btn btn-default" ng-click="steps.step2=true">Previous</button>
-        <button type="submit" ng-disabled="step3$invalid" class="btn btn-success  pull-right" ng-click="">Next</button>
+        <button type="submit" ng-disabled="step3$invalid" class="btn btn-success  pull-right" ng-click="">Save</button>
 
       </form>
     </tab>

@@ -23,7 +23,7 @@ angular.module('webAdminApp')
       });
     }
 
-    $scope.getCurrentSite = function() {
+    $rootScope.getCurrentSite = function() {
       if ($rootScope.currentSite) {
         return $rootScope.currentSite;
       } else if (storage.get("current_site")) {

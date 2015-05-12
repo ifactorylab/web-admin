@@ -97,7 +97,14 @@ angular
     .state('app.page.title-desc', {
       url: '/title-desc',
       controller: 'TitleDescCtrl',
-      templateUrl: 'views/tmpl/page/title-description.html'
+      templateUrl: 'views/tmpl/page/title-description.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
     })
     .state('app.page.content', {
       url: '/content',
@@ -632,6 +639,7 @@ angular
       templateUrl: 'views/tmpl/pages/locked.html'
     })
     //example pages
+    /*
     .state('app.pages', {
       url: '/pages',
       template: '<div ui-view></div>'
@@ -689,6 +697,7 @@ angular
         }]
       }
     })
+*/
     //documentation
     .state('app.help', {
       url: '/help',

@@ -16,8 +16,8 @@
         </li>
         <li ui-sref-active="active"><a ui-sref="app.design"><fa name="file-image-o"></fa> <span>Design</span></a></li>
         <li ui-sref-active="active"><a ui-sref="app.settings"><fa name="wrench"></fa> <span>Settings</span></a></li>
+        <li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li>
         <li ui-sref-active="active"><a ui-sref="app.sites"><fa name="sitemap"></fa> <span>Sites</span></a></li>
-        <!--li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li>
         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.mail')}">
           <a ui-sref="app.mail"><fa name="envelope-o"></fa> <span>Mail</span> <span class="badge bg-lightred">6</span></a>
           <ul>
@@ -75,7 +75,7 @@
             <li ui-sref-active="active"><a ui-sref="app.tables.footable"><fa name="caret-right"></fa> FooTable</a></li>
           </ul>
         </li>
-        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.pages')}">
+        <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.pages')}">
           <a ui-sref="app.pages"><fa name="desktop"></fa> <span>Extra Pages</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="core.login"><fa name="caret-right"></fa> Login Page</a></li>
@@ -91,7 +91,7 @@
             <li ui-sref-active="active"><a ui-sref="app.pages.search-results"><fa name="caret-right"></fa> Search Results</a></li>
             <li ui-sref-active="active"><a ui-sref="app.pages.profile"><fa name="caret-right"></fa> Profile Page</a></li>
           </ul>
-        </li>
+        </li-->
         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.layouts')}">
           <a ui-sref="app.layouts"><fa name="delicious"></fa> <span>Layouts</span></a>
           <ul>
@@ -160,7 +160,7 @@
             </li>
           </ul>
         </li>
-        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li-->
+        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li>
 
       </ul>
     </accordion-group>
@@ -196,7 +196,7 @@
 
     </accordion-group>
 
-    <!--accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
+    <accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
       <accordion-heading>
         General Settings <i class="fa" ng-class="{'fa-angle-up': status.isThirdOpen, 'fa-angle-down': !status.isThirdOpen}"></i>
       </accordion-heading>
@@ -231,7 +231,7 @@
         </div>
       </div>
 
-    </accordion-group-->
+    </accordion-group>
 
   </accordion>
 </div>
