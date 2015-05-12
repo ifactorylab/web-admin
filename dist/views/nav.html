@@ -1,5 +1,4 @@
-<div id="sidebar-wrap" ng-controller="NavCtrl"> <accordion close-others="oneAtTime" slimscroll="{height: '100%'}"> <accordion-group is-open="status.isFirstOpen" ng-class="{'open': status.isFirstOpen, 'closed': !status.isFirstOpen}"> <accordion-heading> Navigation <i class="fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i> </accordion-heading> <ul id="navigation" nav-collapse ripple> <li ui-sref-active="active" ng-class="{'open':$state.includes('app.page')}"> <a ui-sref="app.page"><fa name="desktop"></fa> <span>Page</span></a> <ul> <li ui-sref-active="active"><a ui-sref="app.page.title-desc"><fa name="caret-right"></fa> Title / Description</a></li> <li ui-sref-active="active"><a ui-sref="app.page.content"><fa name="caret-right"></fa> Contents</a></li> <li ui-sref-active="active"><a ui-sref="app.page.background"><fa name="caret-right"></fa> Background Images</a></li> </ul> </li> <li ui-sref-active="active"><a ui-sref="app.design"><fa name="file-image-o"></fa> <span>Design</span></a></li> <li ui-sref-active="active"><a ui-sref="app.settings"><fa name="wrench"></fa> <span>Settings</span></a></li> <li ui-sref-active="active"><a ui-sref="app.sites"><fa name="sitemap"></fa> <span>Sites</span></a></li> <!--li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li>
-        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.mail')}">
+<div id="sidebar-wrap" ng-controller="NavCtrl"> <accordion close-others="oneAtTime" slimscroll="{height: '100%'}"> <accordion-group is-open="status.isFirstOpen" ng-class="{'open': status.isFirstOpen, 'closed': !status.isFirstOpen}"> <accordion-heading> Navigation <i class="fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i> </accordion-heading> <ul id="navigation" nav-collapse ripple> <li ui-sref-active="active" ng-class="{'open':$state.includes('app.page')}"> <a ui-sref="app.page"><fa name="desktop"></fa> <span>Page</span></a> <ul> <li ui-sref-active="active"><a ui-sref="app.page.title-desc"><fa name="caret-right"></fa> Title / Description</a></li> <li ui-sref-active="active"><a ui-sref="app.page.content"><fa name="caret-right"></fa> Contents</a></li> <!--li ui-sref-active="active"><a ui-sref="app.page.background"><fa name="caret-right"></fa> Background Images</a></li--> </ul> </li> <li ui-sref-active="active"><a ui-sref="app.design"><fa name="file-image-o"></fa> <span>Design</span></a></li> <li ui-sref-active="active"><a ui-sref="app.settings"><fa name="wrench"></fa> <span>Settings</span></a></li> <li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>Dashboard</span></a></li> <li ui-sref-active="active"><a ui-sref="app.sites"><fa name="sitemap"></fa> <span>Sites</span></a></li> <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.mail')}">
           <a ui-sref="app.mail"><fa name="envelope-o"></fa> <span>Mail</span> <span class="badge bg-lightred">6</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.mail.inbox"><fa name="caret-right"></fa> Inbox</a></li>
@@ -56,7 +55,7 @@
             <li ui-sref-active="active"><a ui-sref="app.tables.footable"><fa name="caret-right"></fa> FooTable</a></li>
           </ul>
         </li>
-        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.pages')}">
+        <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.pages')}">
           <a ui-sref="app.pages"><fa name="desktop"></fa> <span>Extra Pages</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="core.login"><fa name="caret-right"></fa> Login Page</a></li>
@@ -72,8 +71,7 @@
             <li ui-sref-active="active"><a ui-sref="app.pages.search-results"><fa name="caret-right"></fa> Search Results</a></li>
             <li ui-sref-active="active"><a ui-sref="app.pages.profile"><fa name="caret-right"></fa> Profile Page</a></li>
           </ul>
-        </li>
-        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.layouts')}">
+        </li--> <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.layouts')}">
           <a ui-sref="app.layouts"><fa name="delicious"></fa> <span>Layouts</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.layouts.boxed"><fa name="caret-right"></fa> Boxed layout</a></li>
@@ -141,7 +139,40 @@
             </li>
           </ul>
         </li>
-        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li--> </ul> </accordion-group> <accordion-group is-open="status.isSecondOpen" class="charts" ng-class="{'open': status.isSecondOpen, 'closed': !status.isSecondOpen}"> <accordion-heading> Orders Summary <i class="fa" ng-class="{'fa-angle-up': status.isSecondOpen, 'fa-angle-down': !status.isSecondOpen}"></i> </accordion-heading> <div ng-controller="SparklineCtrl" class="summary"> <div class="media"> <a class="pull-right" href="#"> <span sparkline data="navChart1.data" options="navChart1.options"></span> </a> <div class="media-body"> This week sales <h4 class="media-heading">26, 149</h4> </div> </div> <div class="media"> <a class="pull-right" href="#"> <span sparkline data="navChart2.data" options="navChart2.options"></span> </a> <div class="media-body"> This week balance <h4 class="media-heading">318, 651</h4> </div> </div> </div> </accordion-group> <!--accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
+        <li ui-sref-active="active"><a ui-sref="app.help"><fa name="book"></fa> <span>Documentation</span></a></li>
+
+      </ul--> </ul></accordion-group> <!--accordion-group is-open="status.isSecondOpen" class="charts" ng-class="{'open': status.isSecondOpen, 'closed': !status.isSecondOpen}">
+      <accordion-heading>
+        Orders Summary <i class="fa" ng-class="{'fa-angle-up': status.isSecondOpen, 'fa-angle-down': !status.isSecondOpen}"></i>
+      </accordion-heading>
+
+      <div ng-controller="SparklineCtrl" class="summary">
+
+        <div class="media">
+          <a class="pull-right" href="#">
+            <span sparkline data="navChart1.data" options="navChart1.options"></span>
+          </a>
+          <div class="media-body">
+            This week sales
+            <h4 class="media-heading">26, 149</h4>
+          </div>
+        </div>
+
+        <div class="media">
+          <a class="pull-right" href="#">
+            <span sparkline data="navChart2.data" options="navChart2.options"></span>
+          </a>
+          <div class="media-body">
+            This week balance
+            <h4 class="media-heading">318, 651</h4>
+          </div>
+        </div>
+
+      </div>
+
+    </accordion-group>
+
+    <accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
       <accordion-heading>
         General Settings <i class="fa" ng-class="{'fa-angle-up': status.isThirdOpen, 'fa-angle-down': !status.isThirdOpen}"></i>
       </accordion-heading>
