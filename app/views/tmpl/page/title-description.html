@@ -16,7 +16,7 @@
         <span class="badge badge-default pull-right wizard-step">1</span>
       </tab-heading>
 
-      <form name="step1" role="form" novalidate class="form-validation">
+      <form name="step1" role="form" novalidate class="form-validation" nv-file-drop="" uploader="uploader1">
         <h4 class="custom-font"><strong>PAGE 1</strong></h4><br>
         <div class="row">
           <div class="form-group col-md-12">
@@ -36,49 +36,81 @@
         <label for="username">BACKGROUND IMAGE </label>
         <p class="text-muted">Upload your background image</p>
 
-        <div ng-show="uploader.isHTML5">
+        <div ng-show="pages[0].background.large.url || image1">
+          <!-- col -->
+          <div class="col-md-12" ui-jq="magnificPopup"
+                  ui-options="{
+                delegate: 'a.img-link',
+                type: 'image',
+                tLoading: 'Loading image #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                  enabled: true,
+                  navigateByImgClick: true,
+                  preload: [0,1]
+                }
+              }">
+            <div ng-show="image1">
+              <a href="{{pages[0].background.large.url}}" class="img-link">
+                <img ng-src="{{image1}}" alt="" class="img-responsive mb-20">
+              </a>
+              <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="image1 = null" ng-disabled="!image1">
+                <i class="fa fa-trash"></i> <span>Remove</span>
+              </button>
+            </div>
+            <div ng-show="pages[0].background.large.url">
+              <a href="{{pages[0].background.large.url}}" class="img-link">
+                <img ng-src="{{pages[0].background.large.url}}" alt="" class="img-responsive mb-20">
+              </a>
+            </div>
+          </div>
+        </div>
 
-          <!-- 3. nv-file-over uploader="link" over-class="className" -->
-          <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
-            <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+        <div ng-hide="pages[0].background.large.url || image1">
+          <div ng-show="uploader1.isHTML5">
+
+            <!-- 3. nv-file-over uploader="link" over-class="className" -->
+            <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader1">
+              <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+            </div>
+
+            <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+            <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+              <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
+                Another drop zone with its own settings
+              </div>
+            </div-->
           </div>
 
-          <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-          <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
-              Another drop zone with its own settings
-            </div>
-          </div-->
-        </div>
-
-        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-        <div class="form-group" ng-hide="uploader.isHTML5">
-          <label class="control-label">Background Image</label>
-          <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
-            buttonText: 'Select file',
-            iconName: 'fa fa-inbox'
-          }" nv-file-select="" uploader="uploader">
-        </div>
-
-        <hr class="b-0 b-b"/>
-
-        <div ng-show="0">
-
-          <p ng-show="uploader.isHTML5">Upload progress:</p>
-          <div ng-show="uploader.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
-            <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+          <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+          <div class="form-group" ng-hide="uploader1.isHTML5">
+            <label class="control-label">Background Image</label>
+            <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+              buttonText: 'Select file',
+              iconName: 'fa fa-inbox'
+            }" nv-file-select="" uploader="uploader1">
           </div>
 
           <hr class="b-0 b-b"/>
 
-          </button>
-          <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-            <i class="fa fa-ban"></i> <span>Cancel</span>
-          </button>
-          <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-            <i class="fa fa-trash"></i> <span>Remove</span>
-          </button>
+          <div ng-show="0">
 
+            <p ng-show="uploader1.isHTML5">Upload progress:</p>
+            <div ng-show="uploader1.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+              <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            </div>
+
+            <hr class="b-0 b-b"/>
+
+            </button>
+            <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader1.cancelAll()" ng-disabled="!uploader1.isUploading">
+              <i class="fa fa-ban"></i> <span>Cancel</span>
+            </button>
+            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader1.clearQueue()" ng-disabled="!uploader.queue.length">
+              <i class="fa fa-trash"></i> <span>Remove</span>
+            </button>
+
+          </div>
         </div>
 
         <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default" ng-click="steps.step2=true">Next</button>
@@ -112,49 +144,71 @@
         <label for="username">BACKGROUND IMAGE </label>
         <p class="text-muted">Upload your background image</p>
 
-        <div ng-show="uploader.isHTML5">
+        <div ng-show="pages[1].background.large.url">
+          <!-- col -->
+          <div class="col-md-12" ui-jq="magnificPopup"
+                  ui-options="{
+                delegate: 'a.img-link',
+                type: 'image',
+                tLoading: 'Loading image #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                  enabled: true,
+                  navigateByImgClick: true,
+                  preload: [0,1]
+                }
+              }">
+            <a href="{{pages[1].background.large.url}}" class="img-link">
+              <img ng-src="{{pages[1].background.large.url}}" alt="" class="img-responsive mb-20">
+            </a>
+          </div>
+        </div>
 
-          <!-- 3. nv-file-over uploader="link" over-class="className" -->
-          <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
-            <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+        <div ng-hide="pages[1].background.large.url">
+          <div ng-show="uploader.isHTML5">
+
+            <!-- 3. nv-file-over uploader="link" over-class="className" -->
+            <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
+              <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+            </div>
+
+            <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+            <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+              <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
+                Another drop zone with its own settings
+              </div>
+            </div-->
           </div>
 
-          <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-          <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
-              Another drop zone with its own settings
-            </div>
-          </div-->
-        </div>
-
-        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-        <div class="form-group" ng-hide="uploader.isHTML5">
-          <label class="control-label">Background Image</label>
-          <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
-            buttonText: 'Select file',
-            iconName: 'fa fa-inbox'
-          }" nv-file-select="" uploader="uploader">
-        </div>
-
-        <hr class="b-0 b-b"/>
-
-        <div ng-show="0">
-
-          <p ng-show="uploader.isHTML5">Upload progress:</p>
-          <div ng-show="uploader.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
-            <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+          <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+          <div class="form-group" ng-hide="uploader.isHTML5">
+            <label class="control-label">Background Image</label>
+            <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+              buttonText: 'Select file',
+              iconName: 'fa fa-inbox'
+            }" nv-file-select="" uploader="uploader">
           </div>
 
           <hr class="b-0 b-b"/>
 
-          </button>
-          <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-            <i class="fa fa-ban"></i> <span>Cancel</span>
-          </button>
-          <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-            <i class="fa fa-trash"></i> <span>Remove</span>
-          </button>
+          <div ng-show="0">
 
+            <p ng-show="uploader.isHTML5">Upload progress:</p>
+            <div ng-show="uploader.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+              <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            </div>
+
+            <hr class="b-0 b-b"/>
+
+            </button>
+            <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+              <i class="fa fa-ban"></i> <span>Cancel</span>
+            </button>
+            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+              <i class="fa fa-trash"></i> <span>Remove</span>
+            </button>
+
+          </div>
         </div>
 
         <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
@@ -189,50 +243,73 @@
         <label for="username">BACKGROUND IMAGE </label>
         <p class="text-muted">Upload your background image</p>
 
-        <div ng-show="uploader.isHTML5">
+        <div ng-show="pages[2].background.large.url">
+          <!-- col -->
+          <div class="col-md-12" ui-jq="magnificPopup"
+                  ui-options="{
+                delegate: 'a.img-link',
+                type: 'image',
+                tLoading: 'Loading image #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                  enabled: true,
+                  navigateByImgClick: true,
+                  preload: [0,1]
+                }
+              }">
+            <a href="{{pages[2].background.large.url}}" class="img-link">
+              <img ng-src="{{pages[2].background.large.url}}" alt="" class="img-responsive mb-20">
+            </a>
+          </div>
+        </div>
 
-          <!-- 3. nv-file-over uploader="link" over-class="className" -->
-          <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
-            <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+        <div ng-hide="pages[2].background.large.url">
+          <div ng-show="uploader.isHTML5">
+
+            <!-- 3. nv-file-over uploader="link" over-class="className" -->
+            <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
+              <i style="display: block" class="icon-cloud-upload"></i><span>Add background image</span>
+            </div>
+
+            <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+            <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+              <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
+                Another drop zone with its own settings
+              </div>
+            </div-->
           </div>
 
-          <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-          <!--div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well text-center p-30 b-dashed b-2x">
-              Another drop zone with its own settings
-            </div>
-          </div-->
-        </div>
-
-        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-        <div class="form-group" ng-hide="uploader.isHTML5">
-          <label class="control-label">Background Image</label>
-          <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
-            buttonText: 'Select file',
-            iconName: 'fa fa-inbox'
-          }" nv-file-select="" uploader="uploader">
-        </div>
-
-        <hr class="b-0 b-b"/>
-
-        <div ng-show="0">
-
-          <p ng-show="uploader.isHTML5">Upload progress:</p>
-          <div ng-show="uploader.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
-            <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+          <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+          <div class="form-group" ng-hide="uploader.isHTML5">
+            <label class="control-label">Background Image</label>
+            <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+              buttonText: 'Select file',
+              iconName: 'fa fa-inbox'
+            }" nv-file-select="" uploader="uploader">
           </div>
 
           <hr class="b-0 b-b"/>
 
-          </button>
-          <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-            <i class="fa fa-ban"></i> <span>Cancel</span>
-          </button>
-          <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-            <i class="fa fa-trash"></i> <span>Remove</span>
-          </button>
+          <div ng-show="0">
 
+            <p ng-show="uploader.isHTML5">Upload progress:</p>
+            <div ng-show="uploader.isHTML5" class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+              <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            </div>
+
+            <hr class="b-0 b-b"/>
+
+            </button>
+            <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+              <i class="fa fa-ban"></i> <span>Cancel</span>
+            </button>
+            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+              <i class="fa fa-trash"></i> <span>Remove</span>
+            </button>
+
+          </div>
         </div>
+
         <button type="submit" class="btn btn-default" ng-click="steps.step2=true">Previous</button>
         <button type="submit" ng-disabled="step3$invalid" class="btn btn-success pull-right" ng-click="saveTitles(pages)">Save</button>
 

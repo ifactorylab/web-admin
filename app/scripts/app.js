@@ -101,7 +101,9 @@ angular
       resolve: {
         plugins: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load([
-            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js',
+            'scripts/vendor/magnific/magnific-popup.css',
+            'scripts/vendor/magnific/jquery.magnific-popup.min.js'
           ]);
         }]
       }
@@ -113,7 +115,9 @@ angular
       resolve: {
         plugins: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load([
-            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js',
+            'scripts/vendor/magnific/magnific-popup.css',
+            'scripts/vendor/magnific/jquery.magnific-popup.min.js'
           ]);
         }]
       }
