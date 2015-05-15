@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('PageCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
+  .controller('PagesCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
 
     $scope.getSiteContent = function(authToken, siteId, contentApi) {
       contentApi.show(authToken, siteId).then(function(data) {
@@ -27,6 +27,8 @@ angular.module('webAdminApp')
       contentApi.getContents(authToken, pageId).then(function(data) {
         $scope.contents = data.contents;
         console.log($scope.contents);
+        $rootScope.$broadcast('completePageContents');
+
       }, function(response) {
         var message = 'Something bad happened :(';
         if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
@@ -41,6 +43,7 @@ angular.module('webAdminApp')
       contentApi.getPages(authToken, siteId).then(function(data) {
         $scope.pages = data.pages;
         console.log($scope.pages);
+        $rootScope.$broadcast('completeSitePages');
 
         if ($scope.pages.length > 0) {
           $scope.getPageContents(authToken, $scope.pages[0].id, contentApi);

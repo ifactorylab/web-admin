@@ -91,7 +91,7 @@ angular
     //pages
     .state('app.page', {
       url: '/page',
-      controller: 'PageCtrl',
+      controller: 'PagesCtrl',
       templateUrl: 'views/tmpl/page/page.html'
     })
     .state('app.page.title-desc', {
@@ -122,25 +122,20 @@ angular
         }]
       }
     })
-    .state('app.page.background', {
-      url: '/background',
-      controller: 'BackgroundCtrl',
-      templateUrl: 'views/tmpl/page/background.html',
-      resolve: {
-        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load([
-            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
-          ]);
-        }]
-      }
-    })
     //design
     .state('app.design', {
       url: '/design'
     })
     //settings
     .state('app.settings', {
-      url: '/settings'
+      url: '/settings',
+      controller: 'SettingsCtrl',
+      templateUrl: 'views/tmpl/settings/settings.html'
+    })
+    .state('app.settings.basic-information', {
+      url: '/basic-information',
+      controller: 'BasicInformationCtrl',
+      templateUrl: 'views/tmpl/settings/basic-information.html'
     })
     //dashboard
     .state('app.dashboard', {

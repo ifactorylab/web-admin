@@ -19,6 +19,33 @@ angular.module('webAdminApp')
       $rootScope.$broadcast('hidePageLeftBar');
     };
 
+    $scope.removePreviewImage = function() {
+      if ($scope.steps.step1) {
+        $scope.image1 = null;
+      } else if ($scope.steps.step2) {
+        $scope.image2 = null;
+      } else if ($scope.steps.step3) {
+        $scope.image3 = null;
+      }
+    };
+
+    $scope.setPageImages = function(pages) {
+      $scope.image1 = pages[0].background.small.url;
+      $scope.image2 = pages[1].background.small.url;
+      $scope.image3 = pages[2].background.small.url;
+      $scope.imageLarge1 = pages[0].background.large.url;
+      $scope.imageLarge2 = pages[1].background.large.url;
+      $scope.imageLarge3 = pages[2].background.large.url;
+    };
+
+    $scope.$on('completeSitePages', function () {
+      $scope.setPageImages($scope.pages);
+    });
+
+    if ($scope.pages && $scope.pages.length > 0) {
+      $scope.setPageImages($scope.pages);
+    }
+
     $scope.saveTitles = function(pages) {
       for (var i in pages) {
         contentApi.updatePage($scope.authToken, pages[i]).then(function(data) {
@@ -34,60 +61,49 @@ angular.module('webAdminApp')
     }
 
     var uploader = $scope.uploader = new FileUploader({
-      url: 'scripts/modules/fileupload/upload.php'
-    });
-
-    var uploader1 = $scope.uploader1 = new FileUploader({
-      url: 'scripts/modules/fileupload/upload.php'
+      method: 'PATCH',
+      autoUpload: true,
+      alias: 'file'
     });
 
     // CALLBACKS
-
-    uploader1.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-      console.info('onWhenAddingFileFailed', item, filter, options);
-    };
     uploader.onAfterAddingFile = function(fileItem) {
       console.info('onAfterAddingFile', fileItem);
+      var pageId = $scope.pages[0].id;
+      if ($scope.steps.step1) {
+        pageId = $scope.pages[0].id;
+      } else if ($scope.steps.step2) {
+        pageId = $scope.pages[1].id;
+      } else if ($scope.steps.step3) {
+        pageId = $scope.pages[2].id;
+      }
+      fileItem.url = 'http://service-content.herokuapp.com/pages/' + pageId + '/background'
+      fileItem.upload();
     };
-    uploader1.onAfterAddingFile = function(fileItem) {
-      console.info('onAfterAddingFile', fileItem);
-      var file=fileItem._file;
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      console.info('onSuccessItem', fileItem, response, status, headers);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+      console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      var file = fileItem._file;
       var reader = new FileReader();
       reader.onload = function (evt) {
-        $scope.$apply(function($scope){
-          $scope.image1 = evt.target.result;
-          console.info('onAfterAddingFile', $scope.image1);
+        $scope.$apply(function($scope) {
+          if ($scope.steps.step1) {
+            $scope.image1 = $scope.imageLarge1 = evt.target.result;
+          } else if ($scope.steps.step2) {
+            $scope.image2 = $scope.imageLarge2 = evt.target.result;
+          } else if ($scope.steps.step3) {
+            $scope.image3 = $scope.imageLarge3 = evt.target.result;
+          }
         });
       };
       reader.readAsDataURL(file);
     };
-    uploader1.onAfterAddingAll = function(addedFileItems) {
-      console.info('onAfterAddingAll', addedFileItems);
-    };
-    uploader1.onBeforeUploadItem = function(item) {
-      console.info('onBeforeUploadItem', item);
-    };
-    uploader1.onProgressItem = function(fileItem, progress) {
-      console.info('onProgressItem', fileItem, progress);
-    };
-    uploader1.onProgressAll = function(progress) {
-      console.info('onProgressAll', progress);
-    };
-    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
-      console.info('onSuccessItem', fileItem, response, status, headers);
-    };
-    uploader1.onErrorItem = function(fileItem, response, status, headers) {
-      console.info('onErrorItem', fileItem, response, status, headers);
-    };
-    uploader1.onCancelItem = function(fileItem, response, status, headers) {
-      console.info('onCancelItem', fileItem, response, status, headers);
-    };
-    uploader1.onCompleteItem = function(fileItem, response, status, headers) {
-      console.info('onCompleteItem', fileItem, response, status, headers);
-    };
-    uploader1.onCompleteAll = function() {
-      console.info('onCompleteAll');
-    };
 
-    console.info('uploader', uploader1);
   }]);

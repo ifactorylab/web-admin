@@ -19,6 +19,35 @@ angular.module('webAdminApp')
       $rootScope.$broadcast('hidePageLeftBar');
     };
 
+    $scope.removePreviewImage = function() {
+      if ($scope.steps.step1) {
+        $scope.image1 = null;
+      } else if ($scope.steps.step2) {
+        $scope.image2 = null;
+      } else if ($scope.steps.step3) {
+        $scope.image3 = null;
+      }
+    };
+
+    $scope.setContentImages = function(contents) {
+      $scope.image1 = contents[0].image.large.url;
+      $scope.image2 = contents[1].image.large.url;
+      $scope.image3 = contents[2].image.large.url;
+      $scope.image4 = contents[3].image.large.url;
+      $scope.imageLarge1 = contents[0].image.large.url;
+      $scope.imageLarge2 = contents[1].image.large.url;
+      $scope.imageLarge3 = contents[2].image.large.url;
+      $scope.imageLarge4 = contents[3].image.large.url;
+    };
+
+    $scope.$on('completePageContents', function () {
+      $scope.setContentImages($scope.contents);
+    });
+
+    if ($scope.contents && $scope.contents.length > 0) {
+      $scope.setContentImages($scope.contents);
+    }
+
     $scope.saveContents = function(contents) {
       for (var i in contents) {
         contentApi.updateContent($scope.authToken, contents[i]).then(function(data) {
@@ -35,37 +64,26 @@ angular.module('webAdminApp')
     }
 
     var uploader = $scope.uploader = new FileUploader({
-      url: 'scripts/modules/fileupload/upload.php'
-    });
-
-    // FILTERS
-
-    uploader.filters.push({
-      name: 'customFilter',
-      fn: function() {
-        return this.queue.length < 10;
-      }
+      method: 'PATCH',
+      autoUpload: true,
+      alias: 'file'
     });
 
     // CALLBACKS
-
-    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-      console.info('onWhenAddingFileFailed', item, filter, options);
-    };
     uploader.onAfterAddingFile = function(fileItem) {
       console.info('onAfterAddingFile', fileItem);
-    };
-    uploader.onAfterAddingAll = function(addedFileItems) {
-      console.info('onAfterAddingAll', addedFileItems);
-    };
-    uploader.onBeforeUploadItem = function(item) {
-      console.info('onBeforeUploadItem', item);
-    };
-    uploader.onProgressItem = function(fileItem, progress) {
-      console.info('onProgressItem', fileItem, progress);
-    };
-    uploader.onProgressAll = function(progress) {
-      console.info('onProgressAll', progress);
+      var contentId = $scope.contents[0].id;
+      if ($scope.steps.step1) {
+        contentId = $scope.contents[0].id;
+      } else if ($scope.steps.step2) {
+        contentId = $scope.contents[1].id;
+      } else if ($scope.steps.step3) {
+        contentId = $scope.contents[2].id;
+      } else if ($scope.steps.step4) {
+        contentId = $scope.contents[3].id;
+      }
+      fileItem.url = 'http://service-content.herokuapp.com/contents/' + contentId + '/image'
+      fileItem.upload();
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
       console.info('onSuccessItem', fileItem, response, status, headers);
@@ -77,11 +95,19 @@ angular.module('webAdminApp')
       console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
-      console.info('onCompleteItem', fileItem, response, status, headers);
+      var file = fileItem._file;
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        $scope.$apply(function($scope) {
+          if ($scope.steps.step1) {
+            $scope.image1 = $scope.imageLarge1 = evt.target.result;
+          } else if ($scope.steps.step2) {
+            $scope.image2 = $scope.imageLarge2 = evt.target.result;
+          } else if ($scope.steps.step3) {
+            $scope.image3 = $scope.imageLarge3 = evt.target.result;
+          }
+        });
+      };
+      reader.readAsDataURL(file);
     };
-    uploader.onCompleteAll = function() {
-      console.info('onCompleteAll');
-    };
-
-    console.info('uploader', uploader);
   }]);
