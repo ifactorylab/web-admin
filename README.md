@@ -13,7 +13,7 @@ $ brew install npm
 $ npm install -g grunt-cli
 ```
 
-### Install bower(A package manager for the web)[http://bower.io/]
+### Install [bower](http://bower.io/)
 
 ```
 $ npm install -g bower
