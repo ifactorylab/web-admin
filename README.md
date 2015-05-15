@@ -2,13 +2,13 @@
 
 ## Get Started
 
-### Install NPM(Node Package Manager)[https://www.npmjs.com/]
+### Install [npm](https://www.npmjs.com/])
 
 ```
 $ brew install npm
 ```
 
-### Install grunt(The JavaScript Task Runner)[http://gruntjs.com/]
+### Install [grunt](http://gruntjs.com/)
 ```
 $ npm install -g grunt-cli
 ```
