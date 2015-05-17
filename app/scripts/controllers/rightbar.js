@@ -25,7 +25,6 @@ angular.module('webAdminApp')
     });
 
     $scope.goSite = function(site) {
-      $rootScope.currentSite = site;
       storage.set("current_site", site);
       $scope.main.settings.rightbarShow = false;
       $state.go('app.page', {}, { reload: true });

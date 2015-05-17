@@ -1,0 +1,103 @@
+<!-- left side header-->
+<div class="p-10 bg-white b-r">
+
+  <button class="btn btn-sm btn-default pull-rightvisible-xs" style="border: none" ng-click="hideLeftBar()"><i class="fa fa-chevron-left"></i></button>
+  <h4 style="margin-left: 5px; display: inline" class="custom-font text-default m-0">Home</strong></h4>
+
+</div>
+<!-- /left side header -->
+<!-- left side body -->
+<div class="p-15">
+
+  <tabset class="tab-animation tab-container tab-wizard" justified="true" set-ng-animate="true" ng-init="steps={step1:true}">
+
+    <tab active="steps.step1">
+
+      <form name="step1" role="form" novalidate class="form-validation" nv-file-drop="" uploader="uploader">
+        <h4 class="custom-font"><strong>LOGO & TITLE</strong></h4><br>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="username">SITE TITLE </label>
+            <p class="text-muted">The Site Title is used wherever the title of the site appears.</p>
+            <input type="text" name="name" id="name" class="form-control" ng-model="site.name" required>
+            <p class="help-block">
+              <span ng-show="step1.name.$invalid && !step1.name.$pristine">Name is required.</span>
+            </p>
+          </div>
+        </div>
+
+        <label for="username">LOGO IMAGE </label>
+        <p class="text-muted">Upload a logo image to be used in the place of your site title. Use the template style editor to control your logo size on screen directly from the front of your site.</p>
+
+        <div ng-show="image1">
+          <!-- col -->
+          <div class="col-md-12" ui-jq="magnificPopup"
+                  ui-options="{
+                delegate: 'a.img-link',
+                type: 'image',
+                tLoading: 'Loading image #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                  enabled: true,
+                  navigateByImgClick: true,
+                  preload: [0,1]
+                }
+              }">
+            <div ng-show="image1">
+              <a href="{{imageLarge1}}" class="img-link">
+                <img ng-src="{{image1}}" alt="" class="img-responsive mb-20">
+              </a>
+              <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="removePreviewImage()" ng-disabled="!image1">
+                <i class="fa fa-trash"></i> <span>Remove</span>
+              </button>
+              <hr class="b-0 b-b"/>
+            </div>
+          </div>
+        </div>
+
+        <div ng-hide="image1">
+          <div ng-show="uploader.isHTML5">
+            <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
+              <div ng-hide="uploader.isUploading">
+                <i style="display: block" class="icon-cloud-upload"></i><span>Add a logo.</span>
+              </div>
+              <div ng-show="uploader.isUploading">
+                <p>Upload progress:</p>
+                <div class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+                  <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': uploader.queue[0].progress + '%' }"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+          <div class="form-group" ng-hide="uploader.isHTML5">
+            <label class="control-label">Logo Image</label>
+            <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+              buttonText: 'Select file',
+              iconName: 'fa fa-inbox'
+            }" nv-file-select="" uploader="uploader">
+          </div>
+
+          <hr class="b-0 b-b"/>
+        </div>
+        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-success" ng-click="">Save</button>
+      </form>
+
+    </tab>
+
+  </tabset>
+
+
+</div>
+<!-- /left side body -->
+
+
+
+
+
+
+
+
+
+

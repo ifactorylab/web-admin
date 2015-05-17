@@ -122,13 +122,32 @@ angular
         }]
       }
     })
+    .state('app.page.menu', {
+      url: '/menu',
+      controller: 'MenuCtrl',
+      templateUrl: 'views/tmpl/page/menu.html'
+    })
     //design
     .state('app.design', {
-      url: '/design'
+      url: '/design',
+      abstract: true,
+      controller: 'DesignCtrl',
+      templateUrl: 'views/tmpl/design/design.html'
+    })
+    .state('app.design.logo-title', {
+      url: '/logo-title',
+      controller: 'LogoTitleCtrl',
+      templateUrl: 'views/tmpl/design/logo-title.html'
+    })
+    .state('app.design.style-editor', {
+      url: '/style-editor',
+      controller: 'StyleEditorCtrl',
+      templateUrl: 'views/tmpl/design/style-editor.html'
     })
     //settings
     .state('app.settings', {
       url: '/settings',
+      abstract: true,
       controller: 'SettingsCtrl',
       templateUrl: 'views/tmpl/settings/settings.html'
     })

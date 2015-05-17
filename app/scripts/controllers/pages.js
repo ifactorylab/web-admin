@@ -59,9 +59,7 @@ angular.module('webAdminApp')
     }
 
     $rootScope.getCurrentSite = function() {
-      if ($rootScope.currentSite) {
-        return $rootScope.currentSite;
-      } else if (storage.get("current_site")) {
+      if (storage.get("current_site")) {
         return storage.get("current_site");
       }
       return null;

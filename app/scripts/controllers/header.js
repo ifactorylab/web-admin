@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('HeaderCtrl', function ($scope, $state, storage, authApi) {
+  .controller('HeaderCtrl', function ($scope, $state, $modal, storage, authApi) {
     $scope.authToken = storage.get("auth_token");
 
     $scope.logout = function() {
@@ -23,4 +23,34 @@ angular.module('webAdminApp')
       });
     };
 
+    $scope.createNewSite = function() {
+      $scope.modalInstance = $modal.open({
+        templateUrl: 'views/tmpl/new-site-modal.html',
+        controller: 'NewSiteModalCtrl',
+        size: 'lg',
+        resolve: {
+          items: function () {
+            return $scope.items;
+          },
+          /*
+          site: function () {
+            return site;
+          },
+          business: function () {
+            return business;
+          },
+          hours: function () {
+            return hours;
+          }
+          */
+        }
+      });
+
+      $scope.modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+      });
+    }
   });
+

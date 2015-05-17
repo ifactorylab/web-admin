@@ -11,9 +11,7 @@ angular.module('webAdminApp')
   .controller('SettingsCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
 
     $rootScope.getCurrentSite = function() {
-      if ($rootScope.currentSite) {
-        return $rootScope.currentSite;
-      } else if (storage.get("current_site")) {
+      if (storage.get("current_site")) {
         return storage.get("current_site");
       }
       return null;
@@ -63,6 +61,8 @@ angular.module('webAdminApp')
 
     $scope.authToken = storage.get("auth_token");
     console.log("auth_token: " + $scope.authToken);
+    console.log("settings: ");
+    console.log($scope.getCurrentSite());
     if ($scope.getCurrentSite()) {
       $scope.site = $scope.getCurrentSite();
       $scope.getSiteBusiness($scope.authToken, $scope.site.id, siteApi);

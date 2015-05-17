@@ -8,15 +8,79 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('BasicInformationCtrl', ['$scope', '$rootScope', 'contentApi', 'storage',
-      function($scope, $rootScope, contentApi, storage) {
+  .controller('BasicInformationCtrl', function($scope, $rootScope, $state, contentApi, storage, toastr, toastrConfig) {
     $rootScope.$broadcast('showPageLeftBar');
     $scope.site = $rootScope.getCurrentSite();
     $scope.authToken = storage.get("auth_token");
+
+    var openedToasts = [];
+
+    $scope.toast = {
+      colors: [
+        {name:'primary'},
+        {name:'success'},
+        {name:'warning'},
+        {name:'danger'},
+        {name:'info'},
+        {name:'default'},
+        {name:'cyan'},
+        {name:'amethyst'},
+        {name:'green'},
+        {name:'orange'},
+        {name:'red'},
+        {name:'greensea'},
+        {name:'dutch'},
+        {name:'hotpink'},
+        {name:'drank'},
+        {name:'blue'},
+        {name:'lightred'},
+        {name:'slategray'},
+        {name:'darkgray'}
+      ],
+      icons: [
+        {name: 'none', value: ''},
+        {name: 'warning', value: 'fa-warning'},
+        {name: 'check', value: 'fa-check'},
+        {name: 'user', value: 'fa-user'}
+      ],
+      msg: 'Succeeded to save new basic information',
+      title: 'Basic Information'
+    };
+
+    $scope.options = {
+      position: 'toast-top-right',
+      type: 'success',
+      iconClass: $scope.toast.colors[1],
+      iconType: $scope.toast.icons[2],
+      timeout: '3000',
+      extendedTimeout: '1000',
+      html: false,
+      closeButton: false,
+      tapToDismiss: true,
+      closeHtml: '<i class="fa fa-times"></i>'
+    };
+
+    $scope.clearToasts = function() {
+      toastr.clear();
+    };
+
+    $scope.openToast = function() {
+      var toast = toastr[$scope.options.type]($scope.toast.msg, $scope.toast.title, {
+                    iconClass: 'bg-'+$scope.options.iconClass.name,
+                    iconType: $scope.options.iconType.value
+                  });
+
+      openedToasts.push(toast);
+    };
 
     $scope.hideLeftBar = function() {
       console.log("leftBar");
       $rootScope.$broadcast('hidePageLeftBar');
     };
 
-  }]);
+    $scope.saveBasicInfo = function() {
+      $scope.openToast();
+      $state.go('app.settings.basic-information', {}, { reload: true });
+    }
+  });
+
