@@ -137,7 +137,16 @@ angular
     .state('app.design.logo-title', {
       url: '/logo-title',
       controller: 'LogoTitleCtrl',
-      templateUrl: 'views/tmpl/design/logo-title.html'
+      templateUrl: 'views/tmpl/design/logo-title.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js',
+            'scripts/vendor/magnific/magnific-popup.css',
+            'scripts/vendor/magnific/jquery.magnific-popup.min.js'
+          ]);
+        }]
+      }
     })
     .state('app.design.style-editor', {
       url: '/style-editor',

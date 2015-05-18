@@ -27,13 +27,12 @@ angular.module('webAdminApp')
 
     $scope.getBusinessHour = function(authToken, businessId, siteApi) {
       siteApi.hours(authToken, businessId).then(function(data) {
-        var hours = data.hours;
-        console.log(hours);
-        if (hours) {
+        $scope.hourObjects = data.hours;
+        if ($scope.hourObjects) {
           $scope.hours = {};
           var week = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
           for (var key in week) {
-            $scope.hours[week[key]] = $scope.merge_hours_text(hours[week[key]]);
+            $scope.hours[week[key]] = $scope.merge_hours_text($scope.hourObjects[week[key]]);
           }
         }
 

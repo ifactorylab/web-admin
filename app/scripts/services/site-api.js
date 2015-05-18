@@ -16,16 +16,23 @@ angular.module('webAdminApp')
         RestangularConfigurer.setBaseUrl(apiURL);
     });
 
-    siteApi.sitesWithAuthToken = function (authToken) {
+    siteApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
-        RestangularConfigurer.setDefaultHeaders({ 'Venice-Authorization': authToken });
-      }).service("sites");
+        RestangularConfigurer
+          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+      });
+    };
+
+    siteApi.sitesWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("sites");
     };
 
     siteApi.businessesWithAuthToken = function (authToken) {
-      return this.withConfig(function(RestangularConfigurer) {
-        RestangularConfigurer.setDefaultHeaders({ 'Venice-Authorization': authToken });
-      }).service("businesses");
+      return this.withAuthToken(authToken).service("businesses");
+    };
+
+    siteApi.hoursWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("hours");
     };
 
     siteApi.create = function (authToken, site) {
@@ -57,6 +64,19 @@ angular.module('webAdminApp')
     siteApi.hours = function (authToken, businessId) {
       return this.businessesWithAuthToken(authToken).one(businessId).one("hours").get();
     };
+
+    siteApi.updateHour = function (authToken, hour) {
+      return this.hoursWithAuthToken(authToken).one(hour.id).patch({ hour: hour });
+    };
+
+    siteApi.deleteHour = function (authToken, hourId) {
+      return this.hoursWithAuthToken(authToken).one(hourId).remove();
+    };
+
+    siteApi.getStyle = function (authToken, siteId) {
+      return this.sitesWithAuthToken(authToken).one(siteId).one("style").get();
+    };
+
 
     // Public API here
     return siteApi;
