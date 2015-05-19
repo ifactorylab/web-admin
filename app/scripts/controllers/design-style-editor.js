@@ -11,6 +11,10 @@ angular.module('webAdminApp')
   .controller('StyleEditorCtrl', function($scope, $rootScope, storage) {
     $rootScope.$broadcast('showPageLeftBar');
 
+    $scope.hideLeftBar = function() {
+      $rootScope.$broadcast('hidePageLeftBar');
+    };
+
     $scope.setHeaderColor = function(color) {
       $scope.style.header_background_color = color;
     };

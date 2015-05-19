@@ -35,6 +35,10 @@ angular.module('webAdminApp')
       return this.withAuthToken(authToken).service("hours");
     };
 
+    siteApi.styleWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("style");
+    };
+
     siteApi.create = function (authToken, site) {
       return this.sitesWithAuthToken(authToken).post({site: site});
     };
@@ -77,6 +81,9 @@ angular.module('webAdminApp')
       return this.sitesWithAuthToken(authToken).one(siteId).one("style").get();
     };
 
+    siteApi.updateStyle = function (authToken, style) {
+      return this.styleWithAuthToken(authToken).one(style.id).patch({ style: style });
+    };
 
     // Public API here
     return siteApi;

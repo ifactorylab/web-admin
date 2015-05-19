@@ -2,14 +2,21 @@
 
 /**
  * @ngdoc function
- * @name webAdminApp.controller:PageCtrl
+ * @name webAdminApp.controller:ProductsCtrl
  * @description
- * # PageCtrl
+ * # ProductsCtrl
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('PagesCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
-    $scope.width = "w-xl";
+  .controller('ProductsCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
+    $rootScope.$broadcast('showPageLeftBar', "w-80p");
+    $scope.site = $rootScope.getCurrentSite();
+    $scope.authToken = storage.get("auth_token");
+
+    $scope.hideLeftBar = function() {
+      $rootScope.$broadcast('hidePageLeftBar');
+    };
+    /*
     $scope.getSiteContent = function(authToken, siteId, contentApi) {
       contentApi.show(authToken, siteId).then(function(data) {
         $scope.site.content = data.site;
@@ -93,12 +100,60 @@ angular.module('webAdminApp')
     }
 
     $scope.showLeft = false;
-    $scope.$on('showPageLeftBar', function(events, args){
+    $scope.$on('showPageLeftBar', function () {
       $scope.showLeft = true;
-      $scope.width = args;
     });
 
     $scope.$on('hidePageLeftBar', function () {
       $scope.showLeft = false;
     });
+*/
+  })
+  .controller('ProductsTableCtrl1', function ($scope, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $resource) {
+
+    var vm = this;
+    vm.products = [];
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+      .withBootstrap()
+      .withOption('order', [[1, 'asc']])
+      .withDOM('<"row"<"col-md-8 col-sm-12"<"inline-controls"l>><"col-md-4 col-sm-12"<"pull-right"f>>>t<"row"<"col-md-4 col-sm-12"<"inline-controls"l>><"col-md-4 col-sm-12"<"inline-controls text-center"i>><"col-md-4 col-sm-12"p>>')
+      .withLanguage({
+        "sLengthMenu": 'View _MENU_ records',
+        "sInfo":  'Found _TOTAL_ records',
+        "oPaginate": {
+          "sPage":    "Page",
+          "sPageOf":  "of"
+        }
+      })
+      .withPaginationType('input')
+      //.withScroller()
+      //.withOption("sScrollY", false)
+      //.withOption("sScrollX")
+      .withColumnFilter();
+
+
+    vm.dtColumnDefs = [
+      // DTColumnDefBuilder.newColumnDef(0).notSortable(),
+      DTColumnDefBuilder.newColumnDef(4).notSortable()
+    ];
+
+    vm.selectedAll = false;
+
+    vm.selectAll = function () {
+
+      if ($scope.selectedAll) {
+        $scope.selectedAll = false;
+      } else {
+        $scope.selectedAll = true;
+      }
+
+      angular.forEach(vm.products, function(product) {
+        product.selected = $scope.selectedAll;
+      });
+    };
+
+    $resource('http://www.filltext.com/?rows=300&id={index}&name={lorem|2}&category=["Food","Drinks","Accesories","Electro","Kitchen","Bathroom"]&price={numberLength|3}}&date={date|01-01-2012,01-01-2015}&status=["published","not published","deleted"]&pretty=true').query().$promise.then(function(products) {
+      vm.products = products;
+    });
+
   });

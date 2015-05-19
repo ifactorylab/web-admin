@@ -122,10 +122,19 @@ angular
         }]
       }
     })
-    .state('app.page.menu', {
-      url: '/menu',
-      controller: 'MenuCtrl',
-      templateUrl: 'views/tmpl/page/menu.html'
+    .state('app.page.products', {
+      url: '/products',
+      controller: 'ProductsCtrl',
+      templateUrl: 'views/tmpl/page/products.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/datatables/datatables.bootstrap.min.css',
+            'scripts/vendor/datatables/Pagination/input.js',
+            'scripts/vendor/datatables/ColumnFilter/jquery.dataTables.columnFilter.js'
+          ]);
+        }]
+      }
     })
     //design
     .state('app.design', {
@@ -312,7 +321,7 @@ angular
     //shop/products
     .state('app.shop.products', {
       url: '/products',
-      controller: 'ProductsCtrl',
+      controller: 'ProductsCtrl1',
       templateUrl: 'views/tmpl/shop/products.html',
       resolve: {
         plugins: ['$ocLazyLoad', function($ocLazyLoad) {

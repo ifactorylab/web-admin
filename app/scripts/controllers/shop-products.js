@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('ProductsCtrl', function ($scope) {
+  .controller('ProductsCtrl1', function ($scope) {
     $scope.page = {
       title: 'Products',
       subtitle: 'Place subtitle here...'

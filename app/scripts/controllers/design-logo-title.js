@@ -11,6 +11,10 @@ angular.module('webAdminApp')
   .controller('LogoTitleCtrl', function($scope, $rootScope, storage, FileUploader) {
     $rootScope.$broadcast('showPageLeftBar');
 
+    $scope.hideLeftBar = function() {
+      $rootScope.$broadcast('hidePageLeftBar');
+    };
+
     $scope.removePreviewImage = function() {
       $scope.image = null;
     };

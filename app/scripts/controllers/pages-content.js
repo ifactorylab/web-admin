@@ -2,15 +2,15 @@
 
 /**
  * @ngdoc function
- * @name webAdminApp.controller:TitleDescCtrl
+ * @name webAdminApp.controller:ContentCtrl
  * @description
- * # TitleDescCtrl
+ * # ContentCtrl
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('TitleDescCtrl',
+  .controller('ContentCtrl',
       function($scope, $rootScope, $state, FileUploader, contentApi, storage, toastr, toastrConfig) {
-    $rootScope.$broadcast('showPageLeftBar');
+    $rootScope.$broadcast('showPageLeftBar', 'w-xl');
     $scope.site = $rootScope.getCurrentSite();
     $scope.authToken = storage.get("auth_token");
 
@@ -44,8 +44,8 @@ angular.module('webAdminApp')
         {name: 'check', value: 'fa-check'},
         {name: 'user', value: 'fa-user'}
       ],
-      msg: 'Succeeded to save new title / description',
-      title: 'Title / Description'
+      msg: 'Succeeded to save new contents',
+      title: 'Contents'
     };
 
     $scope.options = {
@@ -88,36 +88,32 @@ angular.module('webAdminApp')
       }
     };
 
-    $scope.setPageImages = function(pages) {
-      if (pages[0].background) {
-        $scope.image1 = pages[0].background.small.url;
-        $scope.imageLarge1 = pages[0].background.large.url;
-      }
-      if (pages[1].background) {
-        $scope.image2 = pages[1].background.small.url;
-        $scope.imageLarge2 = pages[1].background.large.url;
-      }
-      if (pages[2].background) {
-        $scope.image3 = pages[2].background.small.url;
-        $scope.imageLarge3 = pages[2].background.large.url;
-      }
+    $scope.setContentImages = function(contents) {
+      $scope.image1 = contents[0].image.large.url;
+      $scope.image2 = contents[1].image.large.url;
+      $scope.image3 = contents[2].image.large.url;
+      $scope.image4 = contents[3].image.large.url;
+      $scope.imageLarge1 = contents[0].image.large.url;
+      $scope.imageLarge2 = contents[1].image.large.url;
+      $scope.imageLarge3 = contents[2].image.large.url;
+      $scope.imageLarge4 = contents[3].image.large.url;
     };
 
-    $scope.$on('completeSitePages', function () {
-      $scope.setPageImages($scope.pages);
+    $scope.$on('completePageContents', function () {
+      $scope.setContentImages($scope.contents);
     });
 
-    if ($scope.pages && $scope.pages.length > 0) {
-      $scope.setPageImages($scope.pages);
+    if ($scope.contents && $scope.contents.length > 0) {
+      $scope.setContentImages($scope.contents);
     }
 
-    $scope.saveTitles = function(pages) {
+    $scope.saveContents = function(contents) {
       var n = 0;
-      for (var i in pages) {
-        contentApi.updatePage($scope.authToken, pages[i]).then(function(data) {
+      for (var i in contents) {
+        contentApi.updateContent($scope.authToken, contents[i]).then(function(data) {
           if (n++ == 2) {
             $scope.openToast();
-            $state.go('app.page.title-desc', {}, { reload: true });
+            $state.go('app.page.content', {}, { reload: true });
           }
         }, function(response) {
           var message = 'Something bad happened :(';
@@ -127,6 +123,7 @@ angular.module('webAdminApp')
           // $scope.showAlert(message, 'danger', 'fa-warning');
         });
       }
+
     }
 
     var uploader = $scope.uploader = new FileUploader({
@@ -138,15 +135,17 @@ angular.module('webAdminApp')
     // CALLBACKS
     uploader.onAfterAddingFile = function(fileItem) {
       console.info('onAfterAddingFile', fileItem);
-      var pageId = $scope.pages[0].id;
+      var contentId = $scope.contents[0].id;
       if ($scope.steps.step1) {
-        pageId = $scope.pages[0].id;
+        contentId = $scope.contents[0].id;
       } else if ($scope.steps.step2) {
-        pageId = $scope.pages[1].id;
+        contentId = $scope.contents[1].id;
       } else if ($scope.steps.step3) {
-        pageId = $scope.pages[2].id;
+        contentId = $scope.contents[2].id;
+      } else if ($scope.steps.step4) {
+        contentId = $scope.contents[3].id;
       }
-      fileItem.url = 'http://service-content.herokuapp.com/pages/' + pageId + '/background'
+      fileItem.url = 'http://service-content.herokuapp.com/contents/' + contentId + '/image'
       fileItem.upload();
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
@@ -174,5 +173,4 @@ angular.module('webAdminApp')
       };
       reader.readAsDataURL(file);
     };
-
   });
