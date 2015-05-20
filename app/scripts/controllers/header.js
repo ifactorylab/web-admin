@@ -25,8 +25,8 @@ angular.module('webAdminApp')
 
     $scope.createNewSite = function() {
       $scope.modalInstance = $modal.open({
-        templateUrl: 'views/tmpl/new-site-modal.html',
-        controller: 'NewSiteModalCtrl',
+        templateUrl: 'views/tmpl/modals/new-site.html',
+        controller: 'NewSiteCtrl',
         size: 'lg',
         resolve: {
           items: function () {

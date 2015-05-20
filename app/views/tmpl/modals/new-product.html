@@ -1,0 +1,318 @@
+<div class="page page-single-product">
+
+
+
+
+  <!-- page header -->
+  <div class="pageheader">
+
+
+  </div>
+  <!-- /page header -->
+
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+
+    <div class="add-nav">
+      <div class="nav-heading">
+        <h3 ng-show="product">Product Details : <strong class="text-greensea">#123456</strong></h3>
+        <h3 ng-hide="product">New Product </h3>
+        <span class="controls pull-right">
+          <a href="javascript:;" ng-click="cancel()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" tooltip="Back"><i class="fa fa-times"></i></a>
+          <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Save"><i class="fa fa-check"></i></a>
+          <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" tooltip="Reset"><i class="fa fa-trash"></i></a>
+        </span>
+      </div>
+      <tabset ng-init="tabs={tab1:(product != null), tab2:true}">
+
+        <tab heading="Details" ng-show="product" active="tabs.tab1">
+
+
+          <!-- row -->
+          <div class="row" >
+            <!-- col -->
+            <div class="col-md-12">
+
+              <!-- tile -->
+              <section class="tile time-simple">
+
+                <!-- tile body -->
+                <div class="tile-body">
+
+
+                  <!-- row -->
+                  <div class="row">
+
+                    <!-- col -->
+                    <div class="col-md-4" ui-jq="magnificPopup"
+                           ui-options="{
+                        delegate: 'a.img-link',
+                        type: 'image',
+                        tLoading: 'Loading image #%curr%...',
+                        mainClass: 'mfp-img-mobile',
+                        gallery: {
+                          enabled: true,
+                          navigateByImgClick: true,
+                          preload: [0,1]
+                        }
+                       }">
+
+                      <a href="http://placekitten.com/g/800/600" class="img-link">
+                        <img src="http://placekitten.com/g/800/600" alt="" class="img-responsive mb-20">
+                      </a>
+
+
+
+                    </div>
+                    <!-- /col -->
+
+                    <!-- col -->
+                    <div class="col-md-8">
+
+                      <h2 class="custom-font mb-5">Onions <span class="label label-success">Available</span></h2>
+
+                      <p class="short-desc text-sm text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <p class="desc text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+                      <p class="tags"><span class="label label-default mr-5">food</span><span class="label label-default mr-5">vegetables</span><span class="label label-default mr-5">healthly</span><span class="label label-default mr-5">discount</span></p>
+
+                      <h3 class="price mt-40 mb-0 text-success">{{ 2.80 | currency}} / <small>kg</small></h3>
+                      <p class="discount text-sm text-default lt">Discount: 8%</p>
+                    </div>
+                    <!-- /col -->
+
+                  </div>
+                  <!-- /row -->
+
+
+                </div>
+                <!-- /tile body -->
+
+              </section>
+              <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+
+        </tab>
+
+
+
+
+
+
+
+        <tab heading="General" active="tabs.tab2">
+
+
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+              <!-- tile -->
+              <section class="tile">
+
+                <!-- tile header -->
+                <div class="tile-header dvd dvd-btm">
+                  <h1 ng-show="product" class="custom-font"><strong>Edit </strong> General Informations</h1>
+                  <h1 ng-hide="product" class="custom-font"><strong>Add </strong> General Informations</h1>
+                </div>
+                <!-- /tile header -->
+
+
+                <!-- tile body -->
+                <div class="tile-body">
+
+
+                  <form class="form-horizontal" role="form" nv-file-drop="" uploader="uploader">
+                    <!-- col -->
+                    <div class="col-md-5">
+                      <div ng-show="image">
+                        <div class="col-md-12" ui-jq="magnificPopup"
+                                ui-options="{
+                              delegate: 'a.img-link',
+                              type: 'image',
+                              tLoading: 'Loading image #%curr%...',
+                              mainClass: 'mfp-img-mobile',
+                              gallery: {
+                                enabled: true,
+                                navigateByImgClick: true,
+                                preload: [0,1]
+                              }
+                            }">
+                          <div ng-show="image">
+                            <a href="{{imageLarge}}" class="img-link">
+                              <img ng-src="{{image}}" alt="" class="img-responsive mb-20">
+                            </a>
+                            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="removePreviewImage()" ng-disabled="!image">
+                              <i class="fa fa-trash"></i> <span>Remove</span>
+                            </button>
+                            <hr class="b-0 b-b"/>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div ng-hide="image">
+                        <div ng-show="uploader.isHTML5">
+                          <div style="min-height: 300px;" class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
+                            <div ng-hide="uploader.isUploading" style="margin-top: 40%;">
+                              <i style="display: block" class="icon-cloud-upload"></i><span>Add Image</span>
+                            </div>
+                            <div ng-show="uploader.isUploading" style="margin-top: 40%;">
+                              <p>Upload progress:</p>
+                              <div class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+                                <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': uploader.queue[0].progress + '%' }"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group" ng-hide="uploader.isHTML5">
+                          <label class="control-label">Add Image</label>
+                          <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+                            buttonText: 'Select file',
+                            iconName: 'fa fa-inbox'
+                          }" nv-file-select="" uploader="uploader">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- col -->
+                    <div class="col-md-7">
+                      <div ng-show="product" class="form-group col-md-12" style="margin: 0px;">
+                        <label for="id" class="control-label">ID </label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="id" placeholder="Item ID" value="123456" disabled>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-12" style="margin: 0px;">
+                          <label for="name" class="control-label">Name <span class="text-lightred text-md">*</span></label>
+                          <input type="text" class="form-control" id="name" placeholder="Item Name" value="Onions">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-12" style="margin: 0px;">
+                          <label for="description" class="control-label">Description <span class="text-lightred text-md">*</span></label>
+                          <textarea class="form-control" id="description" placeholder="Item Description" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                          </textarea>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-12" style="margin: 0px;">
+                          <label for="category" class="control-label">Category <span class="text-lightred text-md">*</span></label>
+
+                          <select ui-jq="chosen" id="category" multiple="" ui-options="{width: '100%'}" style="display: none;" class="form-  control">
+                            <optgroup label="Food">
+                              <option>Vegetables</option>
+                              <option>Fruits</option>
+                              <option>Meat</option>
+                              <option>Frozen</option>
+                            </optgroup>
+                            <optgroup label="Beverages">
+                              <option>Limo</option>
+                              <option>Alco</option>
+                              <option>Beer</option>
+                            </optgroup>
+                            <optgroup label="Electro">
+                              <option>TV</option>
+                              <option>Hi-FI</option>
+                              <option>Audio</option>
+                              <option>Video</option>
+                              <option>Computers</option>
+                            </optgroup>
+                            <optgroup label="Kitchen">
+                              <option>Microwaves</option>
+                              <option>Accesories</option>
+                              <option>Bowls</option>
+                              <option>Knifes</option>
+                            </optgroup>
+                            <optgroup label="Bathroom">
+                              <option>Sponges</option>
+                              <option>Showers</option>
+                              <option>Soaps</option>
+                              <option>Towels</option>
+                            </optgroup>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row" >
+                        <div class="form-group col-md-6" style="margin: 0px;">
+                          <label for="price" class="control-label">Price <span class="text-lightred text-md">*</span></label>
+                          <input ui-jq="TouchSpin" type="text"  id="price" value="2.80" class="form-control" data-min='0' data-max="100000"   data-step="0.1" data-decimals="2" data-stepinterval="50" data-maxboostedstep="100000" data-prefix="$">
+                        </div>
+
+                        <div class="form-group col-md-6" style="margin: 0px;">
+                          <label for="discount" class="control-label">Discount <span class="text-lightred text-md">*</span></label>
+                          <input ui-jq="TouchSpin" type="text"  id="discount" value="8" class="form-control" data-min='0' data-max="100" data -stepinterval="50" data-maxboostedstep="100000" data-postfix="%">
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6" style="margin: 0px;">
+                          <label for="unit" class="control-label">Unit <span class="text-lightred text-md">*</span></label>
+                          <select id="unit" ui-jq="chosen" ui-options="{width: '100%'}" style="display: none;" class="form-control">
+                            <option>Pc</option>
+                            <option>Kg</option>
+                            <option>g</option>
+                            <option>m</option>
+                            <option>l</option>
+                          </select>
+
+                        </div>
+
+                        <div class="form-group col-md-6" style="margin: 0px;">
+                          <label for="status" class="control-label">Status <span class="text-lightred text-md">*</span></label>
+                          <select id="status" ui-jq="chosen" ui-options="{width: '100%'}" style="display: none;" class="form-control">
+                            <option>Available</option>
+                            <option>Unavailable</option>
+                          </select>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
+
+
+                </div>
+                <!-- /tile body -->
+
+              </section>
+              <!-- /tile -->
+
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+
+        </tab>
+
+      </tabset>
+    </div>
+
+
+
+  </div>
+  <!-- /page content -->
+
+
+
+
+</div>

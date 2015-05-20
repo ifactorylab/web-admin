@@ -22,8 +22,7 @@
         <div class="tile-header dvd dvd-btm">
           <h1 class="custom-font"><strong>Products</strong></h1>
           <ul class="controls">
-
-            <li><a href="javascipt:;"><i class="fa fa-plus mr-5"></i> New Product</a></li>
+            <li><a href="javascipt:;" ng-click="createNewProduct()"><i class="fa fa-plus mr-5"></i> New Product</a></li>
 
             <!--li class="dropdown" dropdown on-toggle="toggled(open)">
 
@@ -79,16 +78,15 @@
         <!-- /tile header -->
 
         <!-- tile body -->
-        <div class="tile-body" ng-controller="ProductsTableCtrl1 as showCase">
+        <div class="tile-body" ng-controller="ProductsTableCtrl as showCase">
           <div class="table-responsive-wide">
-            <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 340px;">
+            <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 300px;">
               <thead>
                 <tr>
                   <th>Product Name</th>
-                  <th>Category</th>
+                  <th style="width:15%;">Category</th>
                   <th style="width:10%;">Price</th>
                   <th style="width:15%;">Status</th>
-                  <th style="width:20%;">Actions</th>
                 </tr>
               </thead>
               <tfoot>
@@ -97,7 +95,6 @@
                   <th>Category</th>
                   <th>Price</th>
                   <th>Status</th>
-                  <th></th>
                 </tr>
               </tfoot>
               <tbody>
@@ -106,10 +103,6 @@
                   <td>{{ product.category }}</td>
                   <td>{{ product.price | currency }}</td>
                   <td><span class="label" ng-class="{'bg-success' : product.status == 'published','bg-warning' : product.status == 'not published','bg-lightred' : product.status == 'deleted'}">{{ product.status }}</span></td>
-                  <td>
-                    <a ui-sref="app.shop.single-product" class="btn btn-xs btn-default"><i class="fa fa-search"></i> View</a>
-                    <a href="javascript:;" class="btn btn-xs btn-lightred"><i class="fa fa-times"></i> Delete</a>
-                  </td>
                 </tr>
               </tbody>
             </table>

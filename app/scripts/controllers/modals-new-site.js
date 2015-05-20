@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name webAdminApp.controller:HeaderCtrl
+ * @name webAdminApp.controller:NewSiteCtrl
  * @description
- * # HeaderCtrl
+ * # NewSiteCtrl
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('NewSiteModalCtrl', function ($scope, $modalInstance, items, storage, siteApi, toastr, toastrConfig) {
+  .controller('NewSiteCtrl', function ($scope, $modalInstance, items, storage, siteApi, toastr, toastrConfig) {
     $scope.items = items;
     $scope.selected = {
       // item: $scope.items[0]

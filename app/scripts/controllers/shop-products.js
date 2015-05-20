@@ -15,7 +15,7 @@ angular.module('webAdminApp')
     };
   })
 
-  .controller('ProductsTableCtrl', function ($scope, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $resource) {
+  .controller('ProductsTableCtrl1', function ($scope, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $resource) {
 
     var vm = this;
     vm.products = [];

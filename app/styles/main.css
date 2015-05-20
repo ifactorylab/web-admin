@@ -10489,6 +10489,12 @@ body {
 .w-xxl, .w-420 {
   width: 420px; }
 
+.w-80p {
+  width: 80%; }
+
+.w-90p {
+  width: 90%; }
+
 hr.line-dashed {
   border-style: dashed; }
 hr.line-full {

@@ -129,6 +129,7 @@ angular.module('webAdminApp')
     var uploader = $scope.uploader = new FileUploader({
       method: 'PATCH',
       autoUpload: true,
+      headers: { 'Venice-Authorization': $scope.authToken },
       alias: 'file'
     });
 

@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('ProductsCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
+  .controller('ProductsCtrl', function ($rootScope, $scope, $sce, $modal, storage, siteApi, contentApi) {
     $rootScope.$broadcast('showPageLeftBar', "w-80p");
     $scope.site = $rootScope.getCurrentSite();
     $scope.authToken = storage.get("auth_token");
@@ -16,6 +16,38 @@ angular.module('webAdminApp')
     $scope.hideLeftBar = function() {
       $rootScope.$broadcast('hidePageLeftBar');
     };
+
+    $scope.createNewProduct = function() {
+      $scope.modalInstance = $modal.open({
+        templateUrl: 'views/tmpl/modals/new-product.html',
+        controller: 'NewProductCtrl',
+        size: 'lg',
+        resolve: {
+          items: function () {
+            return $scope.items;
+          },
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/filestyle/bootstrap-filestyle.min.js',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/Pagination/input.js',
+              'scripts/vendor/datatables/ColumnFilter/jquery.dataTables.columnFilter.js',
+              'scripts/vendor/touchspin/jquery.bootstrap-touchspin.js',
+              'scripts/vendor/touchspin/jquery.bootstrap-touchspin.css',
+              'scripts/vendor/magnific/magnific-popup.css',
+              'scripts/vendor/magnific/jquery.magnific-popup.min.js'
+            ]);
+          }]
+        }
+      });
+
+      $scope.modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+      });
+    };
+
     /*
     $scope.getSiteContent = function(authToken, siteId, contentApi) {
       contentApi.show(authToken, siteId).then(function(data) {
@@ -95,27 +127,16 @@ angular.module('webAdminApp')
       });
     }
 
-    $scope.trustSrc = function(src) {
-      return $sce.trustAsResourceUrl(src);
-    }
 
-    $scope.showLeft = false;
-    $scope.$on('showPageLeftBar', function () {
-      $scope.showLeft = true;
-    });
-
-    $scope.$on('hidePageLeftBar', function () {
-      $scope.showLeft = false;
-    });
 */
   })
-  .controller('ProductsTableCtrl1', function ($scope, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $resource) {
+  .controller('ProductsTableCtrl', function ($scope, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $resource) {
 
     var vm = this;
     vm.products = [];
     vm.dtOptions = DTOptionsBuilder.newOptions()
       .withBootstrap()
-      .withOption('order', [[1, 'asc']])
+      .withOption('order', [[0, 'asc']])
       .withDOM('<"row"<"col-md-8 col-sm-12"<"inline-controls"l>><"col-md-4 col-sm-12"<"pull-right"f>>>t<"row"<"col-md-4 col-sm-12"<"inline-controls"l>><"col-md-4 col-sm-12"<"inline-controls text-center"i>><"col-md-4 col-sm-12"p>>')
       .withLanguage({
         "sLengthMenu": 'View _MENU_ records',
@@ -134,7 +155,7 @@ angular.module('webAdminApp')
 
     vm.dtColumnDefs = [
       // DTColumnDefBuilder.newColumnDef(0).notSortable(),
-      DTColumnDefBuilder.newColumnDef(4).notSortable()
+      DTColumnDefBuilder.newColumnDef(3).notSortable()
     ];
 
     vm.selectedAll = false;
