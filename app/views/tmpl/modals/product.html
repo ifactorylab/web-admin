@@ -18,17 +18,16 @@
 
     <div class="add-nav">
       <div class="nav-heading">
-        <!--h3 ng-show="product">Product Details : <strong class="text-greensea">#123456</strong></h3-->
-        <h3>New Product </h3>
+        <h3 ng-show="product">Product Details : <strong class="text-greensea">{{product.id}}</strong></h3>
         <span class="controls pull-right">
           <a href="javascript:;" ng-click="cancel()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" tooltip="Back"><i class="fa fa-times"></i></a>
-          <a href="javascript:;" ng-click="createProduct()" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Save"><i class="fa fa-check"></i></a>
-          <!--a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" tooltip="Delete"><i class="fa fa-trash"></i></a-->
+          <a href="javascript:;" ng-click="updateProduct(product)" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Save"><i class="fa fa-check"></i></a>
+          <a href="javascript:;" ng-click="deleteProduct(product)" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" tooltip="Delete"><i class="fa fa-trash"></i></a>
         </span>
       </div>
-      <tabset ng-init="tabs={tab1:false, tab2:true}">
+      <tabset ng-init="tabs={tab1:true, tab2:false}">
 
-        <tab heading="Details" ng-show="0" active="tabs.tab1">
+        <tab heading="Details" active="tabs.tab1">
 
 
           <!-- row -->
@@ -60,8 +59,8 @@
                         }
                        }">
 
-                      <a href="http://placekitten.com/g/800/600" class="img-link">
-                        <img src="http://placekitten.com/g/800/600" alt="" class="img-responsive mb-20">
+                      <a href="{{imageLarge}}" class="img-link">
+                        <img ng-src="{{image}}" alt="" class="img-responsive mb-20">
                       </a>
 
 
@@ -72,15 +71,14 @@
                     <!-- col -->
                     <div class="col-md-8">
 
-                      <h2 class="custom-font mb-5">Onions <span class="label label-success">Available</span></h2>
+                      <h2 class="custom-font mb-5">{{product.name}} <span class="label label-success">{{product.status}}</span></h2>
 
-                      <p class="short-desc text-sm text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      <p class="desc text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                      <p class="desc text-default lt mb-20">{{product.description}}</p>
 
-                      <p class="tags"><span class="label label-default mr-5">food</span><span class="label label-default mr-5">vegetables</span><span class="label label-default mr-5">healthly</span><span class="label label-default mr-5">discount</span></p>
+                      <p class="tags"><span class="label label-default mr-5">{{product.category}}</span><!--span class="label label-default mr-5">vegetables</span><span class="label label-default mr-5">healthly</span><span class="label label-default mr-5">discount</span--></p>
 
-                      <h3 class="price mt-40 mb-0 text-success">{{ 2.80 | currency}} / <small>kg</small></h3>
-                      <p class="discount text-sm text-default lt">Discount: 8%</p>
+                      <h3 class="price mt-40 mb-0 text-success">{{ product.price | currency}} / <small>{{product.unit}}</small></h3>
+                      <p class="discount text-sm text-default lt">Discount: {{product.discount}}%</p>
                     </div>
                     <!-- /col -->
 
@@ -198,7 +196,7 @@
                       <div class="row">
                         <div class="form-group col-md-12" style="margin: 0px;">
                           <label for="description" class="control-label">Description <span class="text-lightred text-md">*</span></label>
-                          <textarea class="form-control" id="description" placeholder="Item Description" rows="5" ng-model="product.description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                          <textarea class="form-control" id="description" placeholder="Item Description" rows="5" ng-model="product.description">
                           </textarea>
                         </div>
                       </div>

@@ -85,6 +85,8 @@ angular.module('webAdminApp')
         $scope.image2 = null;
       } else if ($scope.steps.step3) {
         $scope.image3 = null;
+      } else if ($scope.steps.step4) {
+        $scope.image4 = null;
       }
     };
 
@@ -169,6 +171,8 @@ angular.module('webAdminApp')
             $scope.image2 = $scope.imageLarge2 = evt.target.result;
           } else if ($scope.steps.step3) {
             $scope.image3 = $scope.imageLarge3 = evt.target.result;
+          } else if ($scope.steps.step4) {
+            $scope.image4 = $scope.imageLarge4 = evt.target.result;
           }
         });
       };

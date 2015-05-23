@@ -86,7 +86,7 @@
                   <th>Product Name</th>
                   <th style="width:15%;">Category</th>
                   <th style="width:10%;">Price</th>
-                  <th style="width:15%;">Status</th>
+                  <th style="width:10%;">Status</th>
                 </tr>
               </thead>
               <tfoot>
@@ -98,11 +98,11 @@
                 </tr>
               </tfoot>
               <tbody>
-                <tr ng-repeat="product in showCase.products">
+                <tr ng-click="showProduct(product)" style="cursor: pointer" ng-repeat="product in showCase.products">
                   <td>{{ product.name }}</td>
                   <td>{{ product.category }}</td>
                   <td>{{ product.price | currency }}</td>
-                  <td><span class="label" ng-class="{'bg-success' : product.status == 'published','bg-warning' : product.status == 'not published','bg-lightred' : product.status == 'deleted'}">{{ product.status }}</span></td>
+                  <td><span class="label" ng-class="{'bg-success' : product.status == 'Available','bg-warning' : product.status == 'not published','bg-lightred' : product.status == 'deleted'}">{{ product.status }}</span></td>
                 </tr>
               </tbody>
             </table>
