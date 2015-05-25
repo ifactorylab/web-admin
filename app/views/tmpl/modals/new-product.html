@@ -26,89 +26,9 @@
           <!--a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" tooltip="Delete"><i class="fa fa-trash"></i></a-->
         </span>
       </div>
-      <tabset ng-init="tabs={tab1:false, tab2:true}">
+      <tabset ng-init="tabs={tab1:true}">
 
-        <tab heading="Details" ng-show="0" active="tabs.tab1">
-
-
-          <!-- row -->
-          <div class="row" >
-            <!-- col -->
-            <div class="col-md-12">
-
-              <!-- tile -->
-              <section class="tile time-simple">
-
-                <!-- tile body -->
-                <div class="tile-body">
-
-
-                  <!-- row -->
-                  <div class="row">
-
-                    <!-- col -->
-                    <div class="col-md-4" ui-jq="magnificPopup"
-                           ui-options="{
-                        delegate: 'a.img-link',
-                        type: 'image',
-                        tLoading: 'Loading image #%curr%...',
-                        mainClass: 'mfp-img-mobile',
-                        gallery: {
-                          enabled: true,
-                          navigateByImgClick: true,
-                          preload: [0,1]
-                        }
-                       }">
-
-                      <a href="http://placekitten.com/g/800/600" class="img-link">
-                        <img src="http://placekitten.com/g/800/600" alt="" class="img-responsive mb-20">
-                      </a>
-
-
-
-                    </div>
-                    <!-- /col -->
-
-                    <!-- col -->
-                    <div class="col-md-8">
-
-                      <h2 class="custom-font mb-5">Onions <span class="label label-success">Available</span></h2>
-
-                      <p class="short-desc text-sm text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      <p class="desc text-default lt mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-
-                      <p class="tags"><span class="label label-default mr-5">food</span><span class="label label-default mr-5">vegetables</span><span class="label label-default mr-5">healthly</span><span class="label label-default mr-5">discount</span></p>
-
-                      <h3 class="price mt-40 mb-0 text-success">{{ 2.80 | currency}} / <small>kg</small></h3>
-                      <p class="discount text-sm text-default lt">Discount: 8%</p>
-                    </div>
-                    <!-- /col -->
-
-                  </div>
-                  <!-- /row -->
-
-
-                </div>
-                <!-- /tile body -->
-
-              </section>
-              <!-- /tile -->
-
-            </div>
-            <!-- /col -->
-          </div>
-          <!-- /row -->
-
-
-        </tab>
-
-
-
-
-
-
-
-        <tab heading="General" active="tabs.tab2">
+        <tab heading="General" active="tabs.tab1">
 
 
 
@@ -136,32 +56,7 @@
                   <form class="form-horizontal" role="form" nv-file-drop="" uploader="uploader">
                     <!-- col -->
                     <div class="col-md-5">
-                      <div ng-show="image">
-                        <div class="col-md-12" ui-jq="magnificPopup"
-                                ui-options="{
-                              delegate: 'a.img-link',
-                              type: 'image',
-                              tLoading: 'Loading image #%curr%...',
-                              mainClass: 'mfp-img-mobile',
-                              gallery: {
-                                enabled: true,
-                                navigateByImgClick: true,
-                                preload: [0,1]
-                              }
-                            }">
-                          <div ng-show="image">
-                            <a href="{{imageLarge}}" class="img-link">
-                              <img ng-src="{{image}}" alt="" class="img-responsive mb-20">
-                            </a>
-                            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="removePreviewImage()" ng-disabled="!image">
-                              <i class="fa fa-trash"></i> <span>Remove</span>
-                            </button>
-                            <hr class="b-0 b-b"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div ng-hide="image">
+                      <!--div ng-hide="images"-->
                         <div ng-show="uploader.isHTML5">
                           <div style="min-height: 300px;" class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
                             <div ng-hide="uploader.isUploading" style="margin-top: 40%;">
@@ -183,6 +78,43 @@
                             iconName: 'fa fa-inbox'
                           }" nv-file-select="" uploader="uploader">
                         </div>
+                      <!--/div-->
+
+                      <div ng-show="images">
+                        <div class="col-md-12" ui-jq="magnificPopup"
+                                ui-options="{
+                              delegate: 'a.img-link',
+                              type: 'image',
+                              tLoading: 'Loading image #%curr%...',
+                              mainClass: 'mfp-img-mobile',
+                              gallery: {
+                                enabled: true,
+                                navigateByImgClick: true,
+                                preload: [0,1]
+                              }
+                            }">
+                          <!--div ng-show="images">
+                            <a href="{{imageLarge}}" class="img-link">
+                              <img ng-src="{{image}}" alt="" class="img-responsive mb-20">
+                            </a>
+                            <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="removePreviewImage()" ng-disabled="!image">
+                              <i class="fa fa-trash"></i> <span>Remove</span>
+                            </button>
+                            <hr class="b-0 b-b"/>
+                          </div-->
+                          <!-- row thumbnails -->
+                          <div class="row">
+
+                            <!-- col -->
+                            <div class="col-md-3 wrap-reset p-10 ml-5" ng-repeat="image in images">
+                              <a href="{{image.imageLarge}}" class="img-link">
+                                <img ng-src="{{image.image}}" alt="" class="img-responsive mb-10">
+                              </a>
+                            </div>
+                            <!-- /col -->
+                          </div>
+                          <!-- /row -->
+                        </div>
                       </div>
                     </div>
 
@@ -198,7 +130,7 @@
                       <div class="row">
                         <div class="form-group col-md-12" style="margin: 0px;">
                           <label for="description" class="control-label">Description <span class="text-lightred text-md">*</span></label>
-                          <textarea class="form-control" id="description" placeholder="Item Description" rows="5" ng-model="product.description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                          <textarea class="form-control" id="description" placeholder="Item Description" rows="5" ng-model="product.description">
                           </textarea>
                         </div>
                       </div>

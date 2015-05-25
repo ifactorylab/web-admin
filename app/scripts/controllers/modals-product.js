@@ -12,6 +12,8 @@ angular.module('webAdminApp')
     $scope.site = site;
     $scope.authToken = storage.get("auth_token");
     $scope.product = product;
+    console.log("SHOW PRODUCT =====");
+    console.log(product);
 
     $scope.ok = function () {
       $modalInstance.close($scope.selected.item);
@@ -21,16 +23,21 @@ angular.module('webAdminApp')
       $modalInstance.dismiss('cancel');
     };
 
-    $scope.setImage = function(product) {
-      if (product.image) {
-        $scope.image = product.image.small_url;
-        $scope.imageLarge = product.image.very_large_url;
-      }
+    $scope.removeImage = function(image) {
+      productApi.deleteImage($scope.authToken, image.id).then(function(data) {
+        for (var i = $scope.images.length; i--;) {
+          if($scope.images[i] === image) {
+              $scope.images.splice(i, 1);
+          }
+        }
+      }, function(response) {
+        var message = 'Something bad happened :(';
+        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          message = response.data.error.message;
+        }
+        // $scope.showAlert(message, 'danger', 'fa-warning');
+      });
     };
-
-    if (product) {
-      $scope.setImage(product);
-    }
 
     productApi.getCategories($scope.authToken, site.id).then(function(data) {
       $scope.categories = data.categories;
@@ -121,9 +128,14 @@ angular.module('webAdminApp')
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
       var product = response.product;
       console.log(product);
-      $scope.product.image = product.file_name;
-      $scope.product.image_id = product.id;
-      $scope.image = product.file.small.url;
-      $scope.imageLarge = product.file.large.url;
+      if ($scope.product.images == null) {
+        $scope.product.images = [];
+      }
+      $scope.product.images.push({
+        "image": product.file_name,
+        "image_id": product.id,
+        "small_url": product.file.small.url,
+        "very_large_url": product.file.large.url
+      });
     };
   });

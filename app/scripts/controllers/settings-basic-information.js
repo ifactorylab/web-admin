@@ -78,7 +78,14 @@ angular.module('webAdminApp')
       $rootScope.$broadcast('hidePageLeftBar');
     };
 
-    $scope.saveBasicInfo = function() {
+    $scope.saveBusiness = function(business) {
+      console.log("saveBusiness");
+      console.log(business);
+      $scope.business = business;
+      $scope.steps.step3=true;
+    };
+
+    $scope.saveBusinessHours = function() {
       console.log("=====");
       console.log($scope.hours);
       console.log("=====");
@@ -174,6 +181,24 @@ angular.module('webAdminApp')
             // $scope.showAlert(message, 'danger', 'fa-warning');
           });
         }
+      }
+    };
+
+    $scope.saveBasicInfo = function() {
+      console.log($scope.business);
+      if ($scope.business.id == null) {
+        siteApi.createBusiness($scope.authToken, $scope.site.id, $scope.business).then(function(data) {
+          $scope.business.id = data.business.id;
+          $scope.saveBusinessHours();
+        }, function(response) {
+          var message = 'Something bad happened :(';
+          if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+            message = response.data.error.message;
+          }
+          // $scope.showAlert(message, 'danger', 'fa-warning');
+        });
+      } else {
+        $scope.saveBusinessHours();
       }
     };
   });

@@ -20,6 +20,12 @@
         <h4 class="custom-font"><strong>BASIC INFORMATION</strong></h4><br>
         <div class="row">
           <div class="form-group col-md-12">
+            <label for="site_url">SITE URL </label>
+            <input type="url" name="domain" id="domain" class="form-control" ng-model="site.app_url" disabled></input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
             <label for="username">NAME </label>
             <input type="text" name="name" id="name" class="form-control" ng-model="site.name" required>
             <p class="help-block">
@@ -107,7 +113,7 @@
         <hr class="b-0 b-b"/>
 
         <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
-        <button type="submit" ng-disabled="step2$invalid" class="btn pull-right btn-default" ng-click="steps.step3=true">Next</button>
+        <button type="submit" ng-disabled="step2$invalid" class="btn pull-right btn-default" ng-click="saveBusiness(business)">Next</button>
 
       </form>
 

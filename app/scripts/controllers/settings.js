@@ -48,7 +48,9 @@ angular.module('webAdminApp')
     $scope.getSiteBusiness = function(authToken, siteId, siteApi) {
       siteApi.business(authToken, siteId).then(function(data) {
         $scope.business = data.business;
-        $scope.getBusinessHour(authToken, $scope.business.id, siteApi);
+        if ($scope.business != null) {
+          $scope.getBusinessHour(authToken, $scope.business.id, siteApi);
+        }
       }, function(response) {
         var message = 'Something bad happened :(';
         if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {

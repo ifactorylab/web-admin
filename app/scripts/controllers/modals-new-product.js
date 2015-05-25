@@ -108,6 +108,7 @@ angular.module('webAdminApp')
     $scope.createProduct = function() {
       var product = $scope.product;
       product.category_id = product.category.id;
+      console.log("createProduct");
       console.log(product);
       productApi.createProduct($scope.authToken, site.id, product).then(function(data) {
         $modalInstance.dismiss('cancel');
@@ -162,9 +163,13 @@ angular.module('webAdminApp')
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
       var product = response.product;
       console.log(product);
-      $scope.product.image = product.file_name;
-      $scope.product.image_id = product.id;
-      $scope.image = product.file.small.url;
-      $scope.imageLarge = product.file.large.url;
+      if ($scope.product.images == null) {
+        $scope.product.images = [];
+      }
+      $scope.product.images.push({"image": product.file_name, "image_id": product.id});
+      if ($scope.images == null) {
+        $scope.images = [];
+      }
+      $scope.images.push({"image": product.file.small.url, "imageLarge": product.file.large.url});
     };
   });

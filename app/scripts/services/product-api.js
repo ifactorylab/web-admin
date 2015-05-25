@@ -35,6 +35,10 @@ angular.module('webAdminApp')
       return this.withAuthToken(authToken).service("products");
     };
 
+    productApi.productImagesWithAuthToken = function (authToken) {
+      return this.withAuthToken(authToken).service("product_images");
+    };
+
     productApi.createCategory = function (authToken, siteId, category) {
       return this.sitesWithAuthToken(authToken).one(siteId).all("categories")
         .post({category: category});
@@ -64,6 +68,9 @@ angular.module('webAdminApp')
       return this.productsWithAuthToken(authToken).one(productId).remove();
     };
 
+    productApi.deleteImage = function(authToken, imageId) {
+      return this.productImagesWithAuthToken(authToken).one(imageId).remove();
+    }
     // Public API here
     return productApi;
   });
