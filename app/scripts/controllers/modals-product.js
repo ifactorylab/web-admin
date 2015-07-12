@@ -25,14 +25,14 @@ angular.module('webAdminApp')
 
     $scope.removeImage = function(image) {
       productApi.deleteImage($scope.authToken, image.id).then(function(data) {
-        for (var i = $scope.images.length; i--;) {
-          if($scope.images[i] === image) {
-              $scope.images.splice(i, 1);
+        for (var i in $scope.images) {
+          if ($scope.images[i] === image) {
+            $scope.images.splice(i, 1);
           }
         }
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -43,7 +43,7 @@ angular.module('webAdminApp')
       $scope.categories = data.categories;
     }, function(response) {
       var message = 'Something bad happened :(';
-      if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+      if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
         message = response.data.error.message;
       }
       // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -59,7 +59,7 @@ angular.module('webAdminApp')
         $scope.categories.push(data.category);
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -74,7 +74,7 @@ angular.module('webAdminApp')
         $state.go('app.page.products', {}, { reload: true });
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -88,7 +88,7 @@ angular.module('webAdminApp')
         $state.go('app.page.products', {}, { reload: true });
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -128,7 +128,7 @@ angular.module('webAdminApp')
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
       var product = response.product;
       console.log(product);
-      if ($scope.product.images == null) {
+      if ($scope.product.images === null) {
         $scope.product.images = [];
       }
       $scope.product.images.push({

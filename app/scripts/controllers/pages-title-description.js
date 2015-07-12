@@ -85,6 +85,8 @@ angular.module('webAdminApp')
         $scope.image2 = null;
       } else if ($scope.steps.step3) {
         $scope.image3 = null;
+      } else if ($scope.steps.step4) {
+        $scope.image4 = null;
       }
     };
 
@@ -101,6 +103,10 @@ angular.module('webAdminApp')
         $scope.image3 = pages[2].background.small.url;
         $scope.imageLarge3 = pages[2].background.large.url;
       }
+      if (pages[3].background) {
+        $scope.image4 = pages[3].background.small.url;
+        $scope.imageLarge4 = pages[3].background.large.url;
+      }
     };
 
     $scope.$on('completeSitePages', function () {
@@ -115,7 +121,7 @@ angular.module('webAdminApp')
       var n = 0;
       for (var i in pages) {
         contentApi.updatePage($scope.authToken, pages[i]).then(function(data) {
-          if (n++ == 2) {
+          if (n++ == 3) {
             $scope.openToast();
             $state.go('app.page.title-desc', {}, { reload: true });
           }
@@ -146,6 +152,8 @@ angular.module('webAdminApp')
         pageId = $scope.pages[1].id;
       } else if ($scope.steps.step3) {
         pageId = $scope.pages[2].id;
+      } else if ($scope.steps.step3) {
+        pageId = $scope.pages[3].id;
       }
       fileItem.url = 'http://service-content.herokuapp.com/pages/' + pageId + '/background'
       fileItem.upload();
@@ -170,6 +178,8 @@ angular.module('webAdminApp')
             $scope.image2 = $scope.imageLarge2 = evt.target.result;
           } else if ($scope.steps.step3) {
             $scope.image3 = $scope.imageLarge3 = evt.target.result;
+          } else if ($scope.steps.step4) {
+            $scope.image4 = $scope.imageLarge4 = evt.target.result;
           }
         });
       };

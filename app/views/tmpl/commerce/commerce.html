@@ -1,0 +1,30 @@
+<div class="page page-full page-upload">
+
+
+  <div class="tbox tbox-sm">
+
+
+    <!-- left side -->
+    <div class="tcol {{width}} bg-tr-white lt" ng-show="showLeft">
+      <div ui-view></div>
+    </div>
+    <!-- /left side -->
+
+
+    <!-- right side -->
+    <div class="tcol">
+      <iframe style="width: 100%; height: 100%; border: none; min-height: 640px;" ng-src="{{trustSrc(site.app_url)}}"></iframe>
+    </div>
+    <!-- /right side -->
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+

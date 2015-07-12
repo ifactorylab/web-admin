@@ -122,20 +122,6 @@ angular
         }]
       }
     })
-    .state('app.page.products', {
-      url: '/products',
-      controller: 'ProductsCtrl',
-      templateUrl: 'views/tmpl/page/products.html',
-      resolve: {
-        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load([
-            'scripts/vendor/datatables/datatables.bootstrap.min.css',
-            'scripts/vendor/datatables/Pagination/input.js',
-            'scripts/vendor/datatables/ColumnFilter/jquery.dataTables.columnFilter.js'
-          ]);
-        }]
-      }
-    })
     //design
     .state('app.design', {
       url: '/design',
@@ -161,6 +147,46 @@ angular
       url: '/style-editor',
       controller: 'StyleEditorCtrl',
       templateUrl: 'views/tmpl/design/style-editor.html'
+    })
+    //commerce
+    .state('app.commerce', {
+      url: '/commerce',
+      abstract: true,
+      controller: 'CommerceCtrl',
+      templateUrl: 'views/tmpl/commerce/commerce.html'
+    })
+    .state('app.commerce.products', {
+      url: '/products',
+      controller: 'ProductsCtrl',
+      templateUrl: 'views/tmpl/commerce/products.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/datatables/datatables.bootstrap.min.css',
+            'scripts/vendor/datatables/Pagination/input.js',
+            'scripts/vendor/datatables/ColumnFilter/jquery.dataTables.columnFilter.js'
+          ]);
+        }]
+      }
+    })
+    .state('app.commerce.bookings', {
+      url: '/bookings',
+      controller: 'BookingsCtrl',
+      templateUrl: 'views/tmpl/commerce/bookings.html',
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/datatables/datatables.bootstrap.min.css',
+            'scripts/vendor/datatables/Pagination/input.js',
+            'scripts/vendor/datatables/ColumnFilter/jquery.dataTables.columnFilter.js'
+          ]);
+        }]
+      }
+    })
+    .state('app.commerce.bookings-setting', {
+      url: '/bookings/setting',
+      controller: 'BookingSettingCtrl',
+      templateUrl: 'views/tmpl/commerce/bookings/setting.html'
     })
     //settings
     .state('app.settings', {
