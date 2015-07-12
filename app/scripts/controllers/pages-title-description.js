@@ -152,7 +152,7 @@ angular.module('webAdminApp')
         pageId = $scope.pages[1].id;
       } else if ($scope.steps.step3) {
         pageId = $scope.pages[2].id;
-      } else if ($scope.steps.step3) {
+      } else if ($scope.steps.step4) {
         pageId = $scope.pages[3].id;
       }
       fileItem.url = 'http://service-content.herokuapp.com/pages/' + pageId + '/background'
