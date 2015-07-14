@@ -8,12 +8,13 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('BookingCtrl', function ($rootScope, $modalInstance, $state, $scope, booking, site, storage, bookingApi) {
+  .controller('BookingCtrl', function ($rootScope, $modalInstance, $state, $stateParams, $scope, booking, site, storage, bookingApi) {
     $scope.site = site;
     $scope.authToken = storage.get("auth_token");
     $scope.booking = booking;
     console.log("SHOW BOOKING =====");
     console.log(booking);
+    $stateParams = {};
 
     $scope.ok = function () {
       $modalInstance.close($scope.selected.item);

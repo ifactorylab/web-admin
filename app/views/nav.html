@@ -25,18 +25,14 @@
           <a ui-sref="app.commerce"><fa name="wrench"></fa> <span>COMMERCE</span> </a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.commerce.products"><fa name="caret-right"></fa> Products</a></li>
-            <li ui-sref-active="active">
-              <a ui-sref="app.commerce.bookings"><fa name="caret-right"></fa> Bookings</a>
-              <!--ul>
-                <li><a ui-sref="app.commerce.bookings-setting"><fa name="caret-right"></fa> Setting</a></li>
-              </ul-->
-            </li>
+            <li ui-sref-active="active"><a ui-sref="app.commerce.bookings"><fa name="caret-right"></fa> Bookings</a></li>
           </ul>
         </li>
         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.settings')}">
           <a ui-sref="app.settings"><fa name="wrench"></fa> <span>SETTINGS</span> </a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.settings.basic-information"><fa name="caret-right"></fa> Basic Information</a></li>
+            <li ui-sref-active="active"><a ui-sref="app.settings.booking"><fa name="caret-right"></fa> Booking</a></li>
             <!--li ui-sref-active="active"><a ui-sref="app.settings.billing-account"><fa name="caret-right"></fa> Billing & Account</a></li-->
           </ul>
         </li>
@@ -87,7 +83,7 @@
             <li ui-sref-active="active"><a ui-sref="app.shop.single-invoice"><fa name="caret-right"></fa> Single Invoice</a></li>
           </ul>
         </li>
-        <li ui-sref-active="active" ng-class="{'open':$state.includes('app.tables')}">
+        <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.tables')}">
           <a ui-sref="app.tables"><fa name="table"></fa> <span>Tables</span></a>
           <ul>
             <li ui-sref-active="active"><a ui-sref="app.tables.bootstrap"><fa name="caret-right"></fa> Bootstrap Tables</a></li>
@@ -97,7 +93,7 @@
             <li ui-sref-active="active"><a ui-sref="app.tables.smart-table"><fa name="caret-right"></fa> Smart Table</a></li>
             <li ui-sref-active="active"><a ui-sref="app.tables.footable"><fa name="caret-right"></fa> FooTable</a></li>
           </ul>
-        </li>
+        </li-->
         <!--li ui-sref-active="active" ng-class="{'open':$state.includes('app.pages')}">
           <a ui-sref="app.pages"><fa name="desktop"></fa> <span>Extra Pages</span></a>
           <ul>

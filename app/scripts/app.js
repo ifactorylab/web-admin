@@ -189,11 +189,6 @@ angular
         }]
       }
     })
-    .state('app.commerce.bookings-setting', {
-      url: '/bookings/setting',
-      controller: 'BookingSettingCtrl',
-      templateUrl: 'views/tmpl/commerce/bookings/setting.html'
-    })
     //settings
     .state('app.settings', {
       url: '/settings',
@@ -206,6 +201,12 @@ angular
       controller: 'BasicInformationCtrl',
       templateUrl: 'views/tmpl/settings/basic-information.html'
     })
+    .state('app.settings.booking', {
+      url: '/booking',
+      controller: 'BookingSettingCtrl',
+      templateUrl: 'views/tmpl/settings/booking.html'
+    })
+
     //dashboard
     .state('app.dashboard', {
       url: '/dashboard',
