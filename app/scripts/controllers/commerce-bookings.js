@@ -8,10 +8,31 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('BookingsCtrl', function ($rootScope, $scope, $sce, $modal, storage) {
+  .controller('BookingsCtrl', function ($rootScope, $scope, $sce, $modal, $location, $state, $stateParams, storage, bookingApi) {
     $rootScope.$broadcast('showPageLeftBar', "w-80p");
     $scope.site = $rootScope.getCurrentSite();
     $scope.authToken = storage.get("auth_token");
+    var params = $location.search();
+    if (Object.keys(params).length === 0) {
+      params = $stateParams;
+    }
+
+    if (!storage.get("auth_token") || !storage.get("refresh_token")) {
+      $rootScope.$fromParams = params;
+      $state.go('core.login');
+      return;
+    }
+
+    if (params["id"] != null) {
+      bookingApi.getBooking($scope.authToken, params["id"]).then(function(data) {
+        $scope.showBooking(data.booking);
+      }, function(response) {
+        if (response.status == 401) {
+          $rootScope.$fromParams = params;
+          $state.go('core.login', params);
+        }
+      });
+    }
 
     $scope.hideLeftBar = function() {
       $rootScope.$broadcast('hidePageLeftBar');

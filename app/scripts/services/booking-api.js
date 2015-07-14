@@ -35,6 +35,11 @@ angular.module('webAdminApp')
         .one("bookings").get();
     };
 
+    bookingApi.getBooking = function (authToken, bookingId) {
+      return this.bookingsWithAuthToken(authToken).one(bookingId)
+        .get();
+    };
+
     bookingApi.confirmBooking = function (authToken, booking) {
       return this.bookingsWithAuthToken(authToken).one(booking.id)
         .one("confirm").patch({ });

@@ -56,8 +56,13 @@ angular
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+    $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+      if (fromState.name) {
+        $rootScope.$fromState = fromState.name;
+      }
+    });
 
+    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
       event.targetScope.$watch('$viewContentLoaded', function () {
 
         angular.element('html, body, #content').animate({ scrollTop: 0 }, 200);
@@ -173,6 +178,7 @@ angular
       url: '/bookings',
       controller: 'BookingsCtrl',
       templateUrl: 'views/tmpl/commerce/bookings.html',
+      params: {id: null},
       resolve: {
         plugins: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load([

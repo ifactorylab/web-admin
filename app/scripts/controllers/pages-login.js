@@ -8,7 +8,7 @@
  * Controller of the webAdminApp
  */
 angular.module('webAdminApp')
-  .controller('LoginCtrl', function ($scope, $state, $anchorScroll, $timeout, $location, authApi, storage) {
+  .controller('LoginCtrl', function ($rootScope, $scope, $state, $anchorScroll, $timeout, $location, authApi, storage) {
     $scope.showAlert = function(msg, type, icon) {
       var alert = {
         msg: msg,
@@ -46,7 +46,16 @@ angular.module('webAdminApp')
       authApi.create($scope.partner).then(function(data) {
         storage.set('auth_token', data.auth_token);
         storage.set('refresh_token', data.refresh_token);
-        $state.go('app.dashboard');
+        if ($rootScope.$fromState) {
+          console.log("login succeeded");
+          console.log($rootScope.$fromState);
+          console.log($rootScope.$fromParams.id);
+          $state.go($rootScope.$fromState, $rootScope.$fromParams);
+          // $rootScope.$fromParams = null;
+        } else {
+          $state.go('app.dashboard');
+        }
+
       }, function(response) {
         var message = 'Something bad happened :(';
         if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
