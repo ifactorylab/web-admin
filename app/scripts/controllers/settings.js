@@ -60,6 +60,18 @@ angular.module('webAdminApp')
       });
     }
 
+    $scope.getBookingContent = function(authToken, siteId, contentApi) {
+      contentApi.getBookingContent(authToken, siteId).then(function(data) {
+        $scope.booking = data.content;
+      }, function(response) {
+        var message = 'Something bad happened :(';
+        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          message = response.data.error.message;
+        }
+        // $scope.showAlert(message, 'danger', 'fa-warning');
+      });
+    }
+
     $scope.authToken = storage.get("auth_token");
     console.log("auth_token: " + $scope.authToken);
     console.log("settings: ");
@@ -67,6 +79,7 @@ angular.module('webAdminApp')
     if ($scope.getCurrentSite()) {
       $scope.site = $scope.getCurrentSite();
       $scope.getSiteBusiness($scope.authToken, $scope.site.id, siteApi);
+      $scope.getBookingContent($scope.authToken, $scope.site.id, contentApi);
     } else {
       siteApi.index($scope.authToken).then(function(data) {
         $scope.sites = data.sites;

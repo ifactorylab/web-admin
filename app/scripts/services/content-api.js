@@ -58,6 +58,10 @@ angular.module('webAdminApp')
         .patch({ content: content });
     };
 
+    contentApi.getBookingContent = function (authToken, siteId) {
+      return this.sitesWithAuthToken(authToken).one(siteId).one("contents")
+        .one("booking").get();
+    };
     // Public API here
     return contentApi;
   });
