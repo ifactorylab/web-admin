@@ -19,7 +19,7 @@ angular.module('webAdminApp')
       $scope.sites = data.sites;
     }, function(response) {
       var message = 'Something bad happened :(';
-      if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+      if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
         message = response.data.error.message;
       }
 
@@ -37,7 +37,7 @@ angular.module('webAdminApp')
           $scope.site.id = data.site.id;
         }, function(response) {
           var message = 'Something bad happened :(';
-          if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
             message = response.data.error.message;
           }
 
@@ -64,7 +64,7 @@ angular.module('webAdminApp')
         }
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
 
@@ -110,7 +110,7 @@ angular.module('webAdminApp')
           $scope.business.id = data.business.id;
         }, function(response) {
           var message = 'Something bad happened :(';
-          if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
             message = response.data.error.message;
           }
 
@@ -156,7 +156,7 @@ angular.module('webAdminApp')
           $scope.steps.step4 = true;
         }, function(response) {
           var message = 'Something bad happened :(';
-          if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+          if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
             message = response.data.error.message;
           }
           // $scope.showAlert(message, 'danger', 'fa-warning');
@@ -210,7 +210,7 @@ angular.module('webAdminApp')
       $scope.siteName = "New Site";
     }
 
-    $scope.merge_hours_text = function(hours) {
+    $scope.mergeHoursText = function(hours) {
       var text = [];
       for (var key in hours) {
         text.push(hours[key].text);
@@ -225,7 +225,7 @@ angular.module('webAdminApp')
     if (hours) {
       $scope.hours = {};
       for (var key in week) {
-        $scope.hours[week[key]] = $scope.merge_hours_text(hours[week[key]]);
+        $scope.hours[week[key]] = $scope.mergeHoursText(hours[week[key]]);
       }
     }
 

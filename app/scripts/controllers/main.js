@@ -11,7 +11,7 @@ angular.module('webAdminApp')
   .controller('MainCtrl', function ($scope, $http) {
 
     $scope.main = {
-      title: 'Venice',
+      title: 'Bazaar',
       settings: {
         navbarHeaderColor: 'scheme-light',
         sidebarColor: 'scheme-light',

@@ -19,44 +19,44 @@ angular.module('webAdminApp')
     productApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer
-          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+          .setDefaultHeaders({ 'Venice-Authorization': authToken });
       });
     };
 
     productApi.sitesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("sites");
+      return this.withAuthToken(authToken).service('sites');
     };
 
     productApi.categoriesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("categories");
+      return this.withAuthToken(authToken).service('categories');
     };
 
     productApi.productsWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("products");
+      return this.withAuthToken(authToken).service('products');
     };
 
     productApi.productImagesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("product_images");
+      return this.withAuthToken(authToken).service('product_images');
     };
 
     productApi.createCategory = function (authToken, siteId, category) {
-      return this.sitesWithAuthToken(authToken).one(siteId).all("categories")
+      return this.sitesWithAuthToken(authToken).one(siteId).all('categories')
         .post({category: category});
     };
 
     productApi.getCategories = function (authToken, siteId) {
       return this.sitesWithAuthToken(authToken).one(siteId)
-        .one("categories").get();
+        .one('categories').get();
     };
 
     productApi.createProduct = function (authToken, siteId, product) {
-      return this.sitesWithAuthToken(authToken).one(siteId).all("products")
+      return this.sitesWithAuthToken(authToken).one(siteId).all('products')
         .post({product: product});
     };
 
     productApi.getProducts = function (authToken, siteId) {
       return this.sitesWithAuthToken(authToken).one(siteId)
-        .one("products").get();
+        .one('products').get();
     };
 
     productApi.updateProduct = function (authToken, product) {
@@ -70,7 +70,7 @@ angular.module('webAdminApp')
 
     productApi.deleteImage = function(authToken, imageId) {
       return this.productImagesWithAuthToken(authToken).one(imageId).remove();
-    }
+    };
     // Public API here
     return productApi;
   });

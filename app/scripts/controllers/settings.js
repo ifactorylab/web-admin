@@ -11,73 +11,73 @@ angular.module('webAdminApp')
   .controller('SettingsCtrl', function ($rootScope, $scope, $sce, storage, siteApi, contentApi) {
 
     $rootScope.getCurrentSite = function() {
-      if (storage.get("current_site")) {
-        return storage.get("current_site");
+      if (storage.get('current_site')) {
+        return storage.get('current_site');
       }
       return null;
-    }
+    };
 
-    $scope.merge_hours_text = function(hours) {
+    $scope.mergeHoursText = function(hours) {
       var text = [];
       for (var key in hours) {
         text.push(hours[key].text);
       }
-      return text.join(", ");
-    }
+      return text.join(', ');
+    };
 
     $scope.getBusinessHour = function(authToken, businessId, siteApi) {
       siteApi.hours(authToken, businessId).then(function(data) {
         $scope.hourObjects = data.hours;
         if ($scope.hourObjects) {
           $scope.hours = {};
-          var week = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+          var week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
           for (var key in week) {
-            $scope.hours[week[key]] = $scope.merge_hours_text($scope.hourObjects[week[key]]);
+            $scope.hours[week[key]] = $scope.mergeHoursText($scope.hourObjects[week[key]]);
           }
         }
 
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
       });
-    }
+    };
 
     $scope.getSiteBusiness = function(authToken, siteId, siteApi) {
       siteApi.business(authToken, siteId).then(function(data) {
         $scope.business = data.business;
-        if ($scope.business != null) {
+        if ($scope.business !== null) {
           $scope.getBusinessHour(authToken, $scope.business.id, siteApi);
         }
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
       });
-    }
+    };
 
     $scope.getBookingContent = function(authToken, siteId, contentApi) {
       contentApi.getBookingContent(authToken, siteId).then(function(data) {
         $scope.booking = data.content;
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
         // $scope.showAlert(message, 'danger', 'fa-warning');
       });
-    }
+    };
 
-    $scope.authToken = storage.get("auth_token");
-    console.log("auth_token: " + $scope.authToken);
-    console.log("settings: ");
-    console.log($scope.getCurrentSite());
+    $scope.authToken = storage.get('auth_token');
+    console.log('auth_token: ' + $scope.authToken);
+    console.log('settings: ');
     if ($scope.getCurrentSite()) {
       $scope.site = $scope.getCurrentSite();
+      console.log($scope.site);
       $scope.getSiteBusiness($scope.authToken, $scope.site.id, siteApi);
       $scope.getBookingContent($scope.authToken, $scope.site.id, contentApi);
     } else {
@@ -86,11 +86,12 @@ angular.module('webAdminApp')
         if (data.sites.length > 0) {
           $rootScope.currentSite = data.sites[0];
           $scope.site = data.sites[0];
+          console.log($scope.site);
           $scope.getSiteBusiness($scope.authToken, $scope.site.id, siteApi);
         }
       }, function(response) {
         var message = 'Something bad happened :(';
-        if ((response.status == 401 || response.status == 422) && response.data && response.data.error) {
+        if ((response.status === 401 || response.status === 422) && response.data && response.data.error) {
           message = response.data.error.message;
         }
 
@@ -100,7 +101,7 @@ angular.module('webAdminApp')
 
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
-    }
+    };
 
     $scope.showLeft = false;
     $scope.$on('showPageLeftBar', function () {

@@ -18,21 +18,21 @@ angular.module('webAdminApp')
     bookingApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer
-          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+          .setDefaultHeaders({ 'Venice-Authorization': authToken });
       });
     };
 
     bookingApi.sitesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("sites");
+      return this.withAuthToken(authToken).service('sites');
     };
 
     bookingApi.bookingsWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("bookings");
+      return this.withAuthToken(authToken).service('bookings');
     };
 
     bookingApi.getBookings = function (authToken, siteId) {
       return this.sitesWithAuthToken(authToken).one(siteId)
-        .one("bookings").get();
+        .one('bookings').get();
     };
 
     bookingApi.getBooking = function (authToken, bookingId) {
@@ -42,12 +42,12 @@ angular.module('webAdminApp')
 
     bookingApi.confirmBooking = function (authToken, booking) {
       return this.bookingsWithAuthToken(authToken).one(booking.id)
-        .one("confirm").patch({ });
+        .one('confirm').patch({ });
     };
 
     bookingApi.rejectBooking = function (authToken, booking) {
       return this.bookingsWithAuthToken(authToken).one(booking.id)
-        .one("reject").patch({ });
+        .one('reject').patch({ });
     };
 
     bookingApi.deleteBooking = function (authToken, booking) {

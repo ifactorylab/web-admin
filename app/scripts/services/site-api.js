@@ -19,24 +19,24 @@ angular.module('webAdminApp')
     siteApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer
-          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+          .setDefaultHeaders({ 'Venice-Authorization': authToken });
       });
     };
 
     siteApi.sitesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("sites");
+      return this.withAuthToken(authToken).service('sites');
     };
 
     siteApi.businessesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("businesses");
+      return this.withAuthToken(authToken).service('businesses');
     };
 
     siteApi.hoursWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("hours");
+      return this.withAuthToken(authToken).service('hours');
     };
 
     siteApi.styleWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("style");
+      return this.withAuthToken(authToken).service('style');
     };
 
     siteApi.create = function (authToken, site) {
@@ -51,22 +51,26 @@ angular.module('webAdminApp')
       return this.sitesWithAuthToken(authToken).one(siteId).get();
     };
 
+    siteApi.update = function (authToken, site) {
+      return this.sitesWithAuthToken(authToken).one(site.id).patch({ site: site });
+    };
+
     siteApi.createBusiness = function (authToken, siteId, business) {
-      return this.sitesWithAuthToken(authToken).one(siteId).all("businesses")
+      return this.sitesWithAuthToken(authToken).one(siteId).all('businesses')
         .post({business: business});
     };
 
     siteApi.business = function (authToken, siteId) {
-      return this.sitesWithAuthToken(authToken).one(siteId).one("businesses").get();
+      return this.sitesWithAuthToken(authToken).one(siteId).one('businesses').get();
     };
 
     siteApi.createHours = function (authToken, businessId, hours) {
-      return this.businessesWithAuthToken(authToken).one(businessId).all("hours")
+      return this.businessesWithAuthToken(authToken).one(businessId).all('hours')
         .post({hours: hours});
     };
 
     siteApi.hours = function (authToken, businessId) {
-      return this.businessesWithAuthToken(authToken).one(businessId).one("hours").get();
+      return this.businessesWithAuthToken(authToken).one(businessId).one('hours').get();
     };
 
     siteApi.updateHour = function (authToken, hour) {
@@ -78,7 +82,7 @@ angular.module('webAdminApp')
     };
 
     siteApi.getStyle = function (authToken, siteId) {
-      return this.sitesWithAuthToken(authToken).one(siteId).one("style").get();
+      return this.sitesWithAuthToken(authToken).one(siteId).one('style').get();
     };
 
     siteApi.updateStyle = function (authToken, style) {

@@ -19,20 +19,20 @@ angular.module('webAdminApp')
     contentApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer
-          .setDefaultHeaders({ 'Venice-Authorization': authToken })
+          .setDefaultHeaders({ 'Venice-Authorization': authToken });
       });
     };
 
     contentApi.sitesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("sites");
+      return this.withAuthToken(authToken).service('sites');
     };
 
     contentApi.pagesWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("pages");
+      return this.withAuthToken(authToken).service('pages');
     };
 
     contentApi.contentsWithAuthToken = function (authToken) {
-      return this.withAuthToken(authToken).service("contents");
+      return this.withAuthToken(authToken).service('contents');
     };
 
     contentApi.show = function (authToken, siteId) {
@@ -40,7 +40,7 @@ angular.module('webAdminApp')
     };
 
     contentApi.getPages = function (authToken, siteId) {
-      return this.sitesWithAuthToken(authToken).one(siteId).one("pages").get();
+      return this.sitesWithAuthToken(authToken).one(siteId).one('pages').get();
     };
 
     contentApi.updatePage = function (authToken, page) {
@@ -49,7 +49,7 @@ angular.module('webAdminApp')
     };
 
     contentApi.getContents = function (authToken, pageId) {
-      return this.pagesWithAuthToken(authToken).one(pageId).one("contents")
+      return this.pagesWithAuthToken(authToken).one(pageId).one('contents')
         .get();
     };
 
@@ -59,8 +59,8 @@ angular.module('webAdminApp')
     };
 
     contentApi.getBookingContent = function (authToken, siteId) {
-      return this.sitesWithAuthToken(authToken).one(siteId).one("contents")
-        .one("booking").get();
+      return this.sitesWithAuthToken(authToken).one(siteId).one('contents')
+        .one('booking').get();
     };
     // Public API here
     return contentApi;

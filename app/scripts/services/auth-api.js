@@ -17,16 +17,16 @@ angular.module('webAdminApp')
     authApi.withAuthToken = function (authToken) {
       return this.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer.setDefaultHeaders({ 'Venice-Authorization': authToken });
-      }).service("auth");
+      }).service('auth');
     };
 
     authApi.create = function (partner) {
-      return this.service("auth").one().post("partners", { partner: partner });
+      return this.service('auth').one().post('partners', { partner: partner });
     };
 
     authApi.destroy = function (authToken) {
-      Restangular.setDefaultHeaders({ "Venice-Authorization": authToken });
-      return this.withAuthToken(authToken).one("partners").remove();
+      Restangular.setDefaultHeaders({ 'Venice-Authorization': authToken });
+      return this.withAuthToken(authToken).one('partners').remove();
     };
 
     // Public API here
